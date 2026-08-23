@@ -1,0 +1,35 @@
+C:\Users\Familia\Documents\SharpDevelop Projects\intentoSOLUCION\intento\bin\Debug\intento.exe
+C:\Users\Familia\Documents\SharpDevelop Projects\intentoSOLUCION\intento\bin\Debug\intento.pdb
+C:\Users\Familia\Documents\SharpDevelop Projects\intentoSOLUCION\intento\obj\Debug\intento.csprojResolveAssemblyReference.cache
+C:\Users\Familia\Documents\SharpDevelop Projects\intentoSOLUCION\intento\obj\Debug\intento.exe
+C:\Users\Familia\Documents\SharpDevelop Projects\intentoSOLUCION\intento\obj\Debug\intento.pdb
+C:\Users\Almnos\Desktop\intentoSOLUCION\intentoSOLUCION\intento\bin\Debug\intento.exe
+C:\Users\Almnos\Desktop\intentoSOLUCION\intentoSOLUCION\intento\bin\Debug\intento.pdb
+C:\Users\Almnos\Desktop\intentoSOLUCION\intentoSOLUCION\intento\obj\Debug\intento.csprojResolveAssemblyReference.cache
+C:\Users\Almnos\Desktop\intentoSOLUCION\intentoSOLUCION\intento\obj\Debug\intento.exe
+C:\Users\Almnos\Desktop\intentoSOLUCION\intentoSOLUCION\intento\obj\Debug\intento.pdb
+C:\Users\Familia\Documents\SharpDevelop Projects\intentoSOLUCION\intentoSOLUCION\intento\bin\Debug\intento.exe
+C:\Users\Familia\Documents\SharpDevelop Projects\intentoSOLUCION\intentoSOLUCION\intento\bin\Debug\intento.pdb
+C:\Users\Familia\Documents\SharpDevelop Projects\intentoSOLUCION\intentoSOLUCION\intento\obj\Debug\intento.csprojResolveAssemblyReference.cache
+C:\Users\Familia\Documents\SharpDevelop Projects\intentoSOLUCION\intentoSOLUCION\intento\obj\Debug\intento.exe
+C:\Users\Familia\Documents\SharpDevelop Projects\intentoSOLUCION\intentoSOLUCION\intento\obj\Debug\intento.pdb
+C:\Users\Familia\Desktop\intentoSOLUCION\intento\obj\Debug\intento.csprojResolveAssemblyReference.cache
+C:\Users\Familia\Desktop\intentoSOLUCION\intento\obj\Debug\intento.exe
+C:\Users\Familia\Desktop\intentoSOLUCION\intento\obj\Debug\intento.pdb
+C:\Users\Familia\Desktop\intentoSOLUCION\intento\bin\Debug\intento.exe
+C:\Users\Familia\Desktop\intentoSOLUCION\intento\bin\Debug\intento.pdb
+C:\Users\Familia\Desktop\intSOLUCION\intento\obj\Debug\intento.csprojResolveAssemblyReference.cache
+C:\Users\Familia\Desktop\intSOLUCION\intento\obj\Debug\intento.exe
+C:\Users\Familia\Desktop\intSOLUCION\intento\bin\Debug\intento.exe
+C:\Users\Familia\Desktop\intSOLUCION\intento\bin\Debug\intento.pdb
+C:\Users\Familia\Desktop\intSOLUCION\intento\obj\Debug\intento.pdb
+C:\Users\Almnos\Desktop\trabajo final\intento\bin\Debug\intento.exe
+C:\Users\Almnos\Desktop\trabajo final\intento\bin\Debug\intento.pdb
+C:\Users\Almnos\Desktop\trabajo final\intento\obj\Debug\intento.csprojResolveAssemblyReference.cache
+C:\Users\Almnos\Desktop\trabajo final\intento\obj\Debug\intento.exe
+C:\Users\Almnos\Desktop\trabajo final\intento\obj\Debug\intento.pdb
+C:\Users\Familia\Desktop\trabajo final\intento\bin\Debug\intento.exe
+C:\Users\Familia\Desktop\trabajo final\intento\bin\Debug\intento.pdb
+C:\Users\Familia\Desktop\trabajo final\intento\obj\Debug\intento.csprojResolveAssemblyReference.cache
+C:\Users\Familia\Desktop\trabajo final\intento\obj\Debug\intento.exe
+C:\Users\Familia\Desktop\trabajo final\intento\obj\Debug\intento.pdb
