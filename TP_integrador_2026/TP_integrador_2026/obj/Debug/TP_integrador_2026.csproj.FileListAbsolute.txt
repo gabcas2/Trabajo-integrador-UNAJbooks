@@ -1,5 +1,0 @@
-C:\Users\Familia\Documents\SharpDevelop Projects\TP_integrador_2026\TP_integrador_2026\obj\Debug\TP_integrador_2026.csprojResolveAssemblyReference.cache
-C:\Users\Familia\Documents\SharpDevelop Projects\TP_integrador_2026\TP_integrador_2026\bin\Debug\TP_integrador_2026.exe
-C:\Users\Familia\Documents\SharpDevelop Projects\TP_integrador_2026\TP_integrador_2026\bin\Debug\TP_integrador_2026.pdb
-C:\Users\Familia\Documents\SharpDevelop Projects\TP_integrador_2026\TP_integrador_2026\obj\Debug\TP_integrador_2026.exe
-C:\Users\Familia\Documents\SharpDevelop Projects\TP_integrador_2026\TP_integrador_2026\obj\Debug\TP_integrador_2026.pdb
