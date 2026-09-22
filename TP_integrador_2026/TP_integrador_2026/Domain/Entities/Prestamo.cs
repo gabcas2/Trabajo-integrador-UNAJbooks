@@ -6,7 +6,7 @@ namespace TP_integrador_2026.Domain.Entities
 
         public int LibroId { get; private set; }
 
-        public int SocioId { get; private set; }
+        public int? SocioId { get; private set; }
 
         public DateTime FechaPrestamo { get; private set; }
 
@@ -14,7 +14,7 @@ namespace TP_integrador_2026.Domain.Entities
 
         public Libro Libro { get; private set; }
 
-        public Socio Socio { get; private set; }
+        public Socio? Socio { get; private set; }
 
         public Prestamo(
             Libro libro,

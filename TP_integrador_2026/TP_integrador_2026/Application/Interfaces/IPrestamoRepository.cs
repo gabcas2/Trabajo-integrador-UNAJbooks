@@ -15,5 +15,7 @@ namespace TP_integrador_2026.Application.Interfaces
         List<Prestamo> ObtenerActivos();
 
         void Actualizar(Prestamo prestamo);
+
+        bool TienePrestamosActivos(int socioId);
     }
 }

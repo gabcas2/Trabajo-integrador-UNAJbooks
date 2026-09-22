@@ -42,5 +42,22 @@ namespace TP_integrador_2026.Domain.Entities
             Apellido = string.Empty;
             Direccion = string.Empty;
         }
+
+
+        public void ActualizarTelefono(int nuevoTelefono)
+        {
+            if (nuevoTelefono <= 0)
+             throw new ArgumentException("El teléfono debe ser válido.");
+
+            NumTelefono = nuevoTelefono;
+        }
+
+        public void ActualizarDireccion(string nuevaDireccion)
+        {
+            if (string.IsNullOrWhiteSpace(nuevaDireccion))
+            throw new ArgumentException("La dirección es obligatoria.");
+
+            Direccion = nuevaDireccion;
+        }   
     }
 }
