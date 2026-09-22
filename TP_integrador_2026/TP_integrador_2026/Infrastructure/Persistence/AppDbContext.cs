@@ -95,6 +95,9 @@ namespace TP_integrador_2026.Infrastructure.Persistence
 
                 entity.Property(p => p.FechaPrestamo)
                       .IsRequired();
+                      
+                entity.Property(p => p.FechaVencimiento)
+                        .IsRequired();
 
                 entity.Property(p => p.FechaDevolucion)
                       .IsRequired(false);
@@ -108,6 +111,8 @@ namespace TP_integrador_2026.Infrastructure.Persistence
                       .WithMany()
                       .HasForeignKey(p => p.SocioId)
                       .OnDelete(DeleteBehavior.SetNull);
+
+
             });
         }
     }

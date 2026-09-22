@@ -7,6 +7,7 @@ using TP_integrador_2026.Infrastructure.Persistence;
 using TP_integrador_2026.Infrastructure.Repositories;
 using TP_integrador_2026.Application.UseCases.Socios;
 using TP_integrador_2026.Domain.Entities;
+using TP_integrador_2026.Application.UseCases.Prestamos;
 
 namespace TP_integrador_2026
 {
@@ -35,11 +36,14 @@ namespace TP_integrador_2026
             services.AddScoped<BuscarLibro>();
             services.AddScoped<EliminarLibro>();
             services.AddScoped<ConsultarLibros>();
+
             services.AddScoped<RegistrarSocio>();
             services.AddScoped<BuscarSocio>();
             services.AddScoped<ConsultarSocios>();
             services.AddScoped<ModificarSocio>();
             services.AddScoped<EliminarSocio>();
+
+            services.AddScoped<RegistrarPrestamo>();
 
             using var serviceProvider = services.BuildServiceProvider();
 
@@ -65,6 +69,9 @@ namespace TP_integrador_2026
             var consultarSocios = scope.ServiceProvider.GetRequiredService<ConsultarSocios>();
             var modificarSocio =scope.ServiceProvider.GetRequiredService<ModificarSocio>();
             var eliminarSocio =scope.ServiceProvider.GetRequiredService<EliminarSocio>();
+
+            //Prestamos
+            var registrarPrestamo =scope.ServiceProvider.GetRequiredService<RegistrarPrestamo>();
             
 
             while (!salir)
@@ -84,7 +91,8 @@ namespace TP_integrador_2026
                 Console.WriteLine("7. Consultar todos los socios");
                 Console.WriteLine("8. Modificar Socio");
                 Console.WriteLine("9. Eliminar Socio");
-                Console.WriteLine("10. Salir");
+                Console.WriteLine("10. Registrar préstamo");
+                Console.WriteLine("11. Salir");
 
                 Console.WriteLine();
                 Console.Write("Seleccione una opción: ");
@@ -134,6 +142,10 @@ namespace TP_integrador_2026
                             break;
 
                         case "10":
+                            RegistrarPrestamoMenu(registrarPrestamo);
+                            break;
+
+                        case "11":
                             Console.WriteLine("Saliendo de UNAJBOOKS...");
                             salir = true;
                             break;
@@ -158,8 +170,7 @@ namespace TP_integrador_2026
             }
         }
 
-        //estos metodos despues deberian ir a otra clase para que no quede tan grande el main
-
+        //libros
         static void RegistrarLibroMenu(RegistrarLibro registrarLibro)
         {
         
@@ -253,7 +264,7 @@ namespace TP_integrador_2026
             Console.WriteLine();
             Console.WriteLine("Libro eliminado correctamente.");
         }
-
+//Socios
         static void RegistrarSocioMenu(RegistrarSocio registrarSocio)
 {
     Console.WriteLine("---------- REGISTRAR SOCIO ----------");
@@ -503,6 +514,34 @@ static void EliminarSocioMenu(EliminarSocio eliminarSocio)
 
     Console.WriteLine();
     Console.WriteLine("Socio eliminado correctamente.");
+}
+//Prestamos
+static void RegistrarPrestamoMenu(RegistrarPrestamo registrarPrestamo)
+{
+    Console.WriteLine("---------- REGISTRAR PRÉSTAMO ----------");
+    Console.WriteLine();
+
+    Console.Write("DNI del socio: ");
+    string dniTexto = Console.ReadLine() ?? "";
+
+    if (!int.TryParse(dniTexto, out int dni))
+    {
+        Console.WriteLine("El DNI debe ser un número entero.");
+        return;
+    }
+
+    Console.Write("Código del libro: ");
+    string codigoLibro = Console.ReadLine() ?? "";
+
+    var prestamo = registrarPrestamo.Ejecutar(
+        dni,
+        codigoLibro);
+
+    Console.WriteLine();
+    Console.WriteLine("Préstamo registrado correctamente.");
+    Console.WriteLine($"ID del préstamo: {prestamo.Id}");
+    Console.WriteLine($"Fecha del préstamo: {prestamo.FechaPrestamo}");
+    Console.WriteLine($"Fecha de vencimiento: {prestamo.FechaVencimiento}");
 }
 
 }

@@ -9,6 +9,8 @@ namespace TP_integrador_2026.Domain.Entities
         public int DNI { get; private set; }
         public int NumTelefono { get; private set; }
         public string Direccion { get; private set; }
+        public virtual int MaxPrestamosActivos => 4;
+        public virtual int DiasPrestamo => 15;
 
         public Socio(
             string nombre,

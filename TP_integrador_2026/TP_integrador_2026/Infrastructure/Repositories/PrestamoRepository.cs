@@ -69,5 +69,17 @@ namespace TP_integrador_2026.Infrastructure.Repositories
         {
             return _context.Prestamos.Any(p => p.SocioId == socioId && p.FechaDevolucion == null);
         }
+        public int ContarPrestamosActivos(int socioId)
+        {
+            return _context.Prestamos
+                .Count(p => p.SocioId == socioId &&p.FechaDevolucion == null);
+        }   
+
+        public bool TienePrestamoActivo(int socioId, int libroId)
+        {
+            return _context.Prestamos.Any(p => p.SocioId == socioId &&
+                  p.LibroId == libroId &&
+                  p.FechaDevolucion == null);
+        }
     }
 }

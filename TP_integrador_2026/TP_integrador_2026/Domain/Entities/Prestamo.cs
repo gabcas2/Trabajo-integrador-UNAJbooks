@@ -10,6 +10,8 @@ namespace TP_integrador_2026.Domain.Entities
 
         public DateTime FechaPrestamo { get; private set; }
 
+        public DateTime FechaVencimiento { get; private set; }
+
         public DateTime? FechaDevolucion { get; private set; }
 
         public Libro Libro { get; private set; }
@@ -26,16 +28,23 @@ namespace TP_integrador_2026.Domain.Entities
             LibroId = libro.Id;
             SocioId = socio.Id;
 
-            FechaPrestamo = DateTime.Now;
+            FechaPrestamo = DateTime.UtcNow;
+
+            // El plazo se determina mediante polimorfismo
+            FechaVencimiento =
+                FechaPrestamo.AddDays(socio.DiasPrestamo);
+
             FechaDevolucion = null;
         }
 
-        // Constructor utilizado por Entity Framework Core
         private Prestamo()
         {
             Libro = null!;
-            Socio = null!;
+            Socio = null;
         }
+
+        public bool EstaActivo =>
+            !FechaDevolucion.HasValue;
 
         public void RegistrarDevolucion()
         {
@@ -43,7 +52,7 @@ namespace TP_integrador_2026.Domain.Entities
                 throw new InvalidOperationException(
                     "El préstamo ya fue devuelto.");
 
-            FechaDevolucion = DateTime.Now;
+            FechaDevolucion = DateTime.UtcNow;
         }
     }
 }
