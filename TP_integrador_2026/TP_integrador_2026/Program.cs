@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TP_integrador_2026.Application.Interfaces;
@@ -44,6 +44,8 @@ namespace TP_integrador_2026
             services.AddScoped<EliminarSocio>();
 
             services.AddScoped<RegistrarPrestamo>();
+            services.AddScoped<RegistrarDevolucion>();
+            services.AddScoped<ConsultarPrestamosActivos>();
 
             using var serviceProvider = services.BuildServiceProvider();
 
@@ -72,7 +74,8 @@ namespace TP_integrador_2026
 
             //Prestamos
             var registrarPrestamo =scope.ServiceProvider.GetRequiredService<RegistrarPrestamo>();
-            
+            var registrarDevolucion = scope.ServiceProvider.GetRequiredService<RegistrarDevolucion>();
+            var consultarPrestamosActivos = scope.ServiceProvider.GetRequiredService<ConsultarPrestamosActivos>();
 
             while (!salir)
             {
@@ -92,7 +95,9 @@ namespace TP_integrador_2026
                 Console.WriteLine("8. Modificar Socio");
                 Console.WriteLine("9. Eliminar Socio");
                 Console.WriteLine("10. Registrar préstamo");
-                Console.WriteLine("11. Salir");
+                Console.WriteLine("11. Registrar devolución");
+                Console.WriteLine("12. Ver préstamos activos");
+                Console.WriteLine("13. Salir");
 
                 Console.WriteLine();
                 Console.Write("Seleccione una opción: ");
@@ -146,6 +151,14 @@ namespace TP_integrador_2026
                             break;
 
                         case "11":
+                            RegistrarDevolucionMenu(registrarDevolucion);
+                            break;
+
+                        case "12":
+                            ConsultarPrestamosActivosMenu(consultarPrestamosActivos);
+                            break;
+
+                        case "13":
                             Console.WriteLine("Saliendo de UNAJBOOKS...");
                             salir = true;
                             break;
@@ -542,6 +555,59 @@ static void RegistrarPrestamoMenu(RegistrarPrestamo registrarPrestamo)
     Console.WriteLine($"ID del préstamo: {prestamo.Id}");
     Console.WriteLine($"Fecha del préstamo: {prestamo.FechaPrestamo}");
     Console.WriteLine($"Fecha de vencimiento: {prestamo.FechaVencimiento}");
+}
+
+static void RegistrarDevolucionMenu(RegistrarDevolucion registrarDevolucion)
+{
+    Console.WriteLine("---------- REGISTRAR DEVOLUCIÓN ----------");
+    Console.WriteLine();
+
+    Console.Write("ID del préstamo: ");
+    string idTexto = Console.ReadLine() ?? "";
+
+    if (!int.TryParse(idTexto, out int prestamoId))
+    {
+        Console.WriteLine("El ID del préstamo debe ser un número entero.");
+        return;
+    }
+
+    var prestamo = registrarDevolucion.Ejecutar(prestamoId);
+
+    Console.WriteLine();
+    Console.WriteLine("Devolución registrada correctamente.");
+    Console.WriteLine($"ID del préstamo: {prestamo.Id}");
+    Console.WriteLine($"Título del libro: {prestamo.Libro.Titulo}");
+    Console.WriteLine($"Fecha de devolución: {prestamo.FechaDevolucion}");
+    Console.WriteLine($"Stock actualizado: {prestamo.Libro.Stock}");
+}
+
+static void ConsultarPrestamosActivosMenu(
+    ConsultarPrestamosActivos consultarPrestamosActivos)
+{
+    Console.WriteLine("---------- PRÉSTAMOS ACTIVOS ----------");
+    Console.WriteLine();
+
+    var prestamos = consultarPrestamosActivos.Ejecutar();
+
+    if (prestamos.Count == 0)
+    {
+        Console.WriteLine("No hay préstamos activos.");
+        return;
+    }
+
+    foreach (var prestamo in prestamos)
+    {
+        string? socio = prestamo.Socio == null
+            ? "(socio eliminado)"
+            : $"{prestamo.Socio.Nombre} {prestamo.Socio.Apellido}";
+
+        Console.WriteLine(
+            $"ID: {prestamo.Id} | " +
+            $"Libro: {prestamo.Libro.Titulo} | " +
+            $"Socio: {socio} | " +
+            $"Fecha préstamo: {prestamo.FechaPrestamo} | " +
+            $"Vence: {prestamo.FechaVencimiento}");
+    }
 }
 
 }
