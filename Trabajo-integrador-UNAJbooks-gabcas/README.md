@@ -31,7 +31,6 @@ La arquitectura actual separa:
 - Domain: entidades y reglas propias del dominio.
 - Application: interfaces y casos de uso.
 - Infrastructure: persistencia y repositorios.
-- Presentacion: Metodos y excepciones definidas por el usuario
 
 ## Requisitos previos
 
@@ -45,3 +44,5 @@ Se puede comprobar la instalación de .NET ejecutando:
 
 ```bash
 dotnet --version
+
+
