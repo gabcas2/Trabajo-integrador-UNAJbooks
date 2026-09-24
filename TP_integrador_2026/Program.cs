@@ -8,6 +8,7 @@ using TP_integrador_2026.Infrastructure.Repositories;
 using TP_integrador_2026.Application.UseCases.Socios;
 using TP_integrador_2026.Domain.Entities;
 using TP_integrador_2026.Presentacion.Biblioteca;
+using TP_integrador_2026.Application.UseCases.Prestamos;
 
 namespace TP_integrador_2026
 {
@@ -29,6 +30,10 @@ namespace TP_integrador_2026
             // Repositorios
             services.AddScoped<ILibroRepository, LibroRepository>();
             services.AddScoped<ISocioRepository, SocioRepository>();
+            services.AddScoped<IPrestamoRepository, PrestamoRepository>();
+            services.AddScoped<IBusquedaSocioRepository, BusquedaSocioRepository>();
+            
+            
 
             // Casos de uso
             services.AddScoped<RegistrarLibro>();
@@ -37,6 +42,13 @@ namespace TP_integrador_2026
             services.AddScoped<ConsultarLibros>();
             services.AddScoped<RegistrarSocio>();
             services.AddScoped<BuscarSocio>();
+            services.AddScoped<ModificarSocio>();
+            services.AddScoped<ConsultarSocios>();
+            services.AddScoped<EliminarSocio>();
+            services.AddScoped<RegistrarPrestamo>();
+            services.AddScoped<RegistrarDevolucion>();
+            services.AddScoped<ConsultarPrestamosActivos>();
+            services.AddScoped<ConsultarPrestamosSocio>();
 
             using var serviceProvider = services.BuildServiceProvider();
 
@@ -57,7 +69,17 @@ namespace TP_integrador_2026
             bool salir = false;
             //Socios
             var registrarSocio =scope.ServiceProvider.GetRequiredService<RegistrarSocio>();
-            var buscarSocio =scope.ServiceProvider.GetRequiredService<BuscarSocio>();    
+            var buscarSocio =scope.ServiceProvider.GetRequiredService<BuscarSocio>(); 
+            var modificarSocio =scope.ServiceProvider.GetRequiredService<ModificarSocio>();
+            var consultarSocios =scope.ServiceProvider.GetRequiredService<ConsultarSocios>();
+            var eliminarSocio =scope.ServiceProvider.GetRequiredService<EliminarSocio>();
+
+            //Prestamos
+            var registrarPrestamo = scope.ServiceProvider.GetRequiredService<RegistrarPrestamo>();
+            var registrarDevolucion = scope.ServiceProvider.GetRequiredService<RegistrarDevolucion>();
+            var verPrestamosActivos = scope.ServiceProvider.GetRequiredService<ConsultarPrestamosActivos>();
+            var consultarPrestamosSocio = scope.ServiceProvider.GetRequiredService<ConsultarPrestamosSocio>();  
+              
             
 
             while (!salir)
@@ -74,7 +96,15 @@ namespace TP_integrador_2026
                 Console.WriteLine("4. Eliminar libro");
                 Console.WriteLine("5. Registrar socio");
                 Console.WriteLine("6. Buscar socio por DNI");
-                Console.WriteLine("7. Salir");
+                Console.WriteLine("7. Consultar todos los socios");
+                Console.WriteLine("8. Modificar socio");
+                Console.WriteLine("9. Eliminar Socio");
+                Console.WriteLine("10. Registrar préstamo");
+                Console.WriteLine("11. Registrar devolución");
+                Console.WriteLine("12. Ver préstamos activos");
+                Console.WriteLine("13. Consultar préstamos de un socio");
+                Console.WriteLine("14. Salir");
+
                 Console.WriteLine();
                 Console.Write("Seleccione una opción: ");
 
@@ -87,33 +117,56 @@ namespace TP_integrador_2026
                     switch (opcion)
                     {
                         case "1":
-                            RegistrarLibroMenu(registrarLibro);
+                            Biblioteca.RegistrarLibroMenu(registrarLibro);
                             break;
 
                         case "2":
-                            BuscarLibroMenu(buscarLibro);
+                            Biblioteca.BuscarLibroMenu(buscarLibro);
                             break;
 
                         case "3":
-                            ConsultarLibrosMenu(consultarLibros);
+                            Biblioteca.ConsultarLibrosMenu(consultarLibros);
                             break;
 
                         case "4":
-                            EliminarLibroMenu(eliminarLibro);
+                            Biblioteca.EliminarLibroMenu(eliminarLibro);
                             break;
 
                         case "5":
-                            RegistrarSocioMenu(registrarSocio);
+                            Biblioteca.RegistrarSocioMenu(registrarSocio);
                             break;
 
                         case "6":
-                            BuscarSocioMenu(buscarSocio);
+                            Biblioteca.BuscarSocioMenu(buscarSocio);
+                            break;
+                        case "7":
+                            Biblioteca.ConsultarSociosMenu(consultarSocios);
                             break;
 
-                        case "7":
-                            salir = true;
-                            Console.WriteLine("Saliendo de UNAJBOOKS...");
+                        case "8":
+                            Biblioteca.ModificarSocioMenu(modificarSocio);
                             break;
+
+                        case "9":
+                            Biblioteca.EliminarSocioMenu(eliminarSocio);
+                            break;
+                        case "10":
+                           Biblioteca.RegistrarPrestamoMenu(registrarPrestamo);
+                            break;
+                        case "11":
+                            Biblioteca.RegistrarDevolucionMenu(registrarDevolucion);
+                            break;
+                        case "12":
+                            Biblioteca.VerPrestamosActivosMenu(verPrestamosActivos);
+                            break;
+                        case "13":
+                            Biblioteca.ConsultarPrestamosSocioMenu(consultarPrestamosSocio);
+                            break;
+                        case "14":
+                            Console.WriteLine("Saliendo de UNAJBOOKS...");
+                            salir = true;
+                            break;
+                        
 
                         default:
                             Console.WriteLine("Opción no válida.");

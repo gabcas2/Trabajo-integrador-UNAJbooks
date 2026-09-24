@@ -1,10 +1,13 @@
 using TP_integrador_2026.Domain.Entities;
 using TP_integrador_2026.Application.UseCases.Socios;
 using TP_integrador_2026.Application.UseCases.Libros;
+using TP_integrador_2026.Application.UseCases.Prestamos;
 
 namespace TP_integrador_2026.Presentacion.Biblioteca
 {
-    static void RegistrarSocioMenu(RegistrarSocio registrarSocio)
+    public static class Biblioteca
+    {
+        public static void RegistrarSocioMenu(RegistrarSocio registrarSocio)
         {
             try
             {
@@ -73,7 +76,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             }
         }
 
-        static void BuscarSocioMenu(BuscarSocio buscarSocio)
+        public static void BuscarSocioMenu(BuscarSocio buscarSocio)
         {
             try
             {
@@ -110,7 +113,88 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             }
         }
 
-    static void BuscarLibroMenu(BuscarLibro buscarLibro)
+        public static void ModificarSocioMenu(ModificarSocio modificarSocio)
+        {
+            try
+            {
+                Console.WriteLine("---------- MODIFICAR SOCIO ----------");
+                Console.WriteLine();
+
+                Console.Write("DNI del socio: ");
+                string dniTexto = Console.ReadLine() ?? "";
+
+                if (!int.TryParse(dniTexto, out int dni))
+                    {
+                        throw new FormatException("El DNI debe ser un número entero.");
+                    }
+
+                Console.Write("Nuevo teléfono (ENTER para mantener el actual): ");
+                string telefonoTexto = Console.ReadLine() ?? "";
+
+                int? nuevoTelefono = null;
+
+                if (!string.IsNullOrWhiteSpace(telefonoTexto))
+                {
+                    if (!int.TryParse(telefonoTexto, out int telefono))
+                    {
+                        throw new FormatException("El teléfono debe ser un número entero.");
+                    }
+
+                nuevoTelefono = telefono;
+                }
+
+            Console.Write("Nueva dirección (ENTER para mantener la actual): ");
+            string direccionTexto = Console.ReadLine() ?? "";
+
+            string? nuevaDireccion = null;
+
+            if (!string.IsNullOrWhiteSpace(direccionTexto))
+            {
+                nuevaDireccion = direccionTexto;
+            }
+
+            Console.Write("¿Cambiar tipo de socio? (s/n/ENTER para mantener): ");
+            string tipoTexto = Console.ReadLine() ?? "";
+
+            bool? nuevoEsPremium = null;
+
+            if (!string.IsNullOrWhiteSpace(tipoTexto))
+            {
+                if (tipoTexto.Equals("s", StringComparison.OrdinalIgnoreCase))
+                {
+                    nuevoEsPremium = true;
+                }
+                else if (tipoTexto.Equals("n", StringComparison.OrdinalIgnoreCase))
+                {
+                    nuevoEsPremium = false;
+                }
+                else
+                {
+                    throw new FormatException(
+                    "Debe ingresar 's', 'n' o presionar ENTER.");
+                }
+            }   
+
+            modificarSocio.Ejecutar(
+                dni,
+                nuevoTelefono,
+                nuevaDireccion,
+                nuevoEsPremium);
+
+            Console.WriteLine();
+            Console.WriteLine("Socio modificado correctamente.");
+            }
+        catch (FormatException ex)
+        {
+            Console.WriteLine($"[Error de formato]: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Error al modificar socio]: {ex.Message}");
+        }
+    } 
+
+        public static void BuscarLibroMenu(BuscarLibro buscarLibro)
         {
             try
                 {
@@ -137,7 +221,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
                 }
         }
 
-    static void ConsultarLibrosMenu(ConsultarLibros consultarLibros)
+        public static void ConsultarLibrosMenu(ConsultarLibros consultarLibros)
         {
             try
             {
@@ -167,7 +251,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             }    
         }
 
-    static void EliminarLibroMenu(EliminarLibro eliminarLibro)
+        public static void EliminarLibroMenu(EliminarLibro eliminarLibro)
         {
             try
             {
@@ -187,7 +271,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             }    
         }
 
-    static void RegistrarLibroMenu(RegistrarLibro registrarLibro)
+        public static void RegistrarLibroMenu(RegistrarLibro registrarLibro)
         {
             try
             {
@@ -232,6 +316,244 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
                 Console.WriteLine($"[Aviso de Stock]: {ex.Message}");
             }
         } 
+        public static void ConsultarSociosMenu(ConsultarSocios consultarSocios)
+        {
+            try
+            {
+                Console.WriteLine("---------- SOCIOS ----------");
+                Console.WriteLine();
+
+                var socios = consultarSocios.Ejecutar();
+
+                if (socios.Count == 0)
+                {
+                    Console.WriteLine("No hay socios registrados.");
+                    return;
+                }
+
+                foreach (var socio in socios)
+                {
+                    string tipo = socio is SocioPremium ? "Premium" : "Normal";
+
+                    Console.WriteLine(
+                    $"ID: {socio.Id} | " +
+                    $"Nombre: {socio.Nombre} | " +
+                    $"Apellido: {socio.Apellido} | " +
+                    $"DNI: {socio.DNI} | " +
+                    $"Teléfono: {socio.NumTelefono} | " +
+                    $"Dirección: {socio.Direccion} | " +
+                    $"Tipo: {tipo}");
+                }
+            }
+            catch (Exception ex)
+            {
+            Console.WriteLine($"[Error al consultar socios]: {ex.Message}");
+            }
+        }
+
+        public static void EliminarSocioMenu(EliminarSocio eliminarSocio)
+        {
+            try
+            {
+                Console.WriteLine("---------- ELIMINAR SOCIO ----------");
+                Console.WriteLine();
+
+                Console.Write("DNI del socio: ");
+                string dniTexto = Console.ReadLine() ?? "";
+
+                if (!int.TryParse(dniTexto, out int dni))
+                    {
+                        throw new FormatException("El DNI debe ser un número entero.");
+                    }
+
+                eliminarSocio.Ejecutar(dni);
+
+                Console.WriteLine();
+                Console.WriteLine("Socio eliminado correctamente.");
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine($"[Error de formato]: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Error al eliminar socio]: {ex.Message}");
+            }
+        }
+        public static void RegistrarPrestamoMenu(RegistrarPrestamo registrarPrestamo)
+{
+    try
+    {
+        Console.WriteLine("---------- REGISTRAR PRÉSTAMO ----------");
+        Console.WriteLine();
+
+        Console.Write("DNI del socio: ");
+        string dniTexto = Console.ReadLine() ?? "";
+
+        if (!int.TryParse(dniTexto, out int dni))
+        {
+            throw new FormatException(
+                "El DNI debe ser un número entero.");
+        }
+
+        Console.Write("Código del libro: ");
+        string codigoLibro = Console.ReadLine() ?? "";
+
+        if (string.IsNullOrWhiteSpace(codigoLibro))
+        {
+            throw new FormatException(
+                "El código del libro es obligatorio.");
+        }
+
+        var prestamo = registrarPrestamo.Ejecutar(
+            dni,
+            codigoLibro);
+
+        Console.WriteLine();
+        Console.WriteLine("Préstamo registrado correctamente.");
+        Console.WriteLine($"ID del préstamo: {prestamo.Id}");
+        Console.WriteLine($"Libro: {prestamo.Libro.Titulo}");
+        Console.WriteLine($"Socio: {prestamo.Socio.Nombre} {prestamo.Socio.Apellido}");
+        Console.WriteLine($"Fecha de préstamo: {prestamo.FechaPrestamo}");
+        Console.WriteLine($"Fecha de vencimiento: {prestamo.FechaVencimiento}");
+    }
+    catch (FormatException ex)
+    {
+        Console.WriteLine($"[Error de formato]: {ex.Message}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[Error al registrar préstamo]: {ex.Message}");
+    }
+}
+
+public static void RegistrarDevolucionMenu(RegistrarDevolucion registrarDevolucion)
+{
+    try
+    {
+        Console.WriteLine("---------- REGISTRAR DEVOLUCIÓN ----------");
+        Console.WriteLine();
+
+        Console.Write("ID del préstamo: ");
+        string prestamoTexto = Console.ReadLine() ?? "";
+
+        if (!int.TryParse(prestamoTexto, out int prestamoId))
+        {
+            throw new FormatException(
+                "El ID del préstamo debe ser un número entero.");
+        }
+
+        var prestamo = registrarDevolucion.Ejecutar(prestamoId);
+
+        Console.WriteLine();
+        Console.WriteLine("Devolución registrada correctamente.");
+        Console.WriteLine($"ID del préstamo: {prestamo.Id}");
+        Console.WriteLine($"Libro: {prestamo.Libro.Titulo}");
+        Console.WriteLine($"Socio: {prestamo.Socio.Nombre} {prestamo.Socio.Apellido}");
+        Console.WriteLine($"Fecha de devolución: {prestamo.FechaDevolucion}");
+    }
+    catch (FormatException ex)
+    {
+        Console.WriteLine($"[Error de formato]: {ex.Message}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[Error al registrar devolución]: {ex.Message}");
+    }
+}
+
+public static void VerPrestamosActivosMenu(
+    ConsultarPrestamosActivos consultarPrestamosActivos)
+{
+    try
+    {
+        Console.WriteLine("---------- PRÉSTAMOS ACTIVOS ----------");
+        Console.WriteLine();
+
+        var prestamos = consultarPrestamosActivos.Ejecutar();
+
+        if (prestamos.Count == 0)
+        {
+            Console.WriteLine("No hay préstamos activos.");
+            return;
+        }
+
+        foreach (var prestamo in prestamos)
+        {
+            Console.WriteLine(
+                $"ID: {prestamo.Id} | " +
+                $"Libro: {prestamo.Libro.Titulo} | " +
+                $"Socio: {prestamo.Socio.Nombre} {prestamo.Socio.Apellido} | " +
+                $"DNI: {prestamo.Socio.DNI} | " +
+                $"Préstamo: {prestamo.FechaPrestamo} | " +
+                $"Vencimiento: {prestamo.FechaVencimiento}");
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(
+            $"[Error al consultar préstamos activos]: {ex.Message}");
+    }
+}
+
+public static void ConsultarPrestamosSocioMenu(
+    ConsultarPrestamosSocio consultarPrestamosSocio)
+{
+    try
+    {
+        Console.WriteLine("---------- PRÉSTAMOS DEL SOCIO ----------");
+        Console.WriteLine();
+
+        Console.Write("DNI del socio: ");
+        string dniTexto = Console.ReadLine() ?? "";
+
+        if (!int.TryParse(dniTexto, out int dni))
+        {
+            throw new FormatException(
+                "El DNI debe ser un número entero.");
+        }
+
+        var socio = consultarPrestamosSocio.BuscarSocio(dni);
+        var prestamos = consultarPrestamosSocio.Ejecutar(socio);
+
+        Console.WriteLine();
+        Console.WriteLine(
+            $"Socio: {socio.Nombre} {socio.Apellido} | DNI: {socio.DNI}");
+
+        if (prestamos.Count == 0)
+        {
+            Console.WriteLine("El socio no tiene préstamos registrados.");
+            return;
+        }
+
+        Console.WriteLine();
+
+        foreach (var prestamo in prestamos)
+        {
+            string estado = prestamo.EstaActivo()
+                ? "Activo"
+                : "Devuelto";
+
+            Console.WriteLine(
+                $"ID: {prestamo.Id} | " +
+                $"Libro: {prestamo.Libro.Titulo} | " +
+                $"Fecha préstamo: {prestamo.FechaPrestamo} | " +
+                $"Vencimiento: {prestamo.FechaVencimiento} | " +
+                $"Estado: {estado} | " +
+                $"Devolución: {prestamo.FechaDevolucion}");
+        }
+    }
+    catch (FormatException ex)
+    {
+        Console.WriteLine($"[Error de formato]: {ex.Message}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(
+            $"[Error al consultar préstamos del socio]: {ex.Message}");
+    }
+}
+
 
         public class StockInsuficienteException : Exception
         {
@@ -242,4 +564,5 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
         {
             public DatoLibroInvalidoException(string mensaje) : base(mensaje) { }
         }                   
+}
 }

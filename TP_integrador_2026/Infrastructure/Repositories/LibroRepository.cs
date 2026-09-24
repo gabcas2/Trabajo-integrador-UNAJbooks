@@ -36,20 +36,25 @@ namespace TP_integrador_2026.Infrastructure.Repositories
 
         public void Eliminar(Libro libro)
         {
+            var prestamos = _context.Prestamos
+            .Where(p => p.LibroId == libro.Id)
+            .ToList();
+
+            _context.Prestamos.RemoveRange(prestamos);
             _context.Libros.Remove(libro);
+
             _context.SaveChanges();
         }
-
         public bool ExisteCodigo(string codigo)
         {
             return _context.Libros
                 .Any(l => l.Codigo == codigo);
         }
 
-        public bool TienePrestamos(int libroId)
+       public bool TienePrestamosActivos(int libroId)
         {
             return _context.Prestamos
-                .Any(p => p.LibroId == libroId);
+            .Any(p => p.LibroId == libroId && p.FechaDevolucion == null);
         }
 
         

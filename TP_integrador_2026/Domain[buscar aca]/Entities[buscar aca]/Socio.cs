@@ -10,6 +10,10 @@ namespace TP_integrador_2026.Domain.Entities
         public int NumTelefono { get; private set; }
         public string Direccion { get; private set; }
 
+        public virtual int MaxPrestamosActivos => 4;
+
+        public virtual int DiasPrestamo => 15;
+
         public Socio(
             string nombre,
             string apellido,
@@ -34,6 +38,19 @@ namespace TP_integrador_2026.Domain.Entities
             DNI = dni;
             NumTelefono = numTelefono;
             Direccion = direccion;
+        }
+
+        public void ActualizarTelefono(int nuevoTelefono)
+        {
+            if (nuevoTelefono <= 0)
+                throw new ArgumentException("El teléfono debe ser válido.");
+
+            NumTelefono = nuevoTelefono;
+        }
+
+        public void ActualizarDireccion(string nuevaDireccion)
+        {
+            Direccion = nuevaDireccion ?? string.Empty;
         }
 
         protected Socio()

@@ -1,6 +1,7 @@
 using TP_integrador_2026.Application.Interfaces;
 using TP_integrador_2026.Domain.Entities;
 using TP_integrador_2026.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace TP_integrador_2026.Infrastructure.Repositories
 {
@@ -35,16 +36,29 @@ namespace TP_integrador_2026.Infrastructure.Repositories
                 .ToList();
         }
 
-        public void Eliminar(Socio socio)
-        {
-            _context.Socios.Remove(socio);
-            _context.SaveChanges();
-        }
+       public void Eliminar(Socio socio)
+{
+    var prestamos = _context.Prestamos
+        .Where(p => p.SocioId == socio.Id)
+        .ToList();
+
+    _context.Prestamos.RemoveRange(prestamos);
+    _context.Socios.Remove(socio);
+
+    _context.SaveChanges();
+}
 
         public bool ExisteDNI(int dni)
         {
             return _context.Socios
                 .Any(s => s.DNI == dni);
+        }
+        public void Actualizar(Socio socio, bool esPremium)
+        {
+            string discriminador = esPremium ? "SocioPremium" : "Socio";
+
+            _context.Database.ExecuteSqlInterpolated(
+                $"UPDATE \"Socios\" SET \"Discriminator\" = {discriminador} WHERE \"Id\" = {socio.Id}");
         }
     }
 }

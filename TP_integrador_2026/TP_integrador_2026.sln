@@ -1,18 +1,32 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2010
-# SharpDevelop 4.4
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP_integrador_2026", "TP_integrador_2026\TP_integrador_2026.csproj", "{7783AA98-CF00-44B9-8B3E-68397ECF1BA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP_integrador_2026", "TP_integrador_2026.csproj", "{79956BD3-9BFA-499A-8078-FD165503224C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7783AA98-CF00-44B9-8B3E-68397ECF1BA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7783AA98-CF00-44B9-8B3E-68397ECF1BA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7783AA98-CF00-44B9-8B3E-68397ECF1BA6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7783AA98-CF00-44B9-8B3E-68397ECF1BA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Debug|x64.Build.0 = Debug|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Debug|x86.Build.0 = Debug|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Release|x64.ActiveCfg = Release|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Release|x64.Build.0 = Release|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Release|x86.ActiveCfg = Release|Any CPU
+		{79956BD3-9BFA-499A-8078-FD165503224C}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

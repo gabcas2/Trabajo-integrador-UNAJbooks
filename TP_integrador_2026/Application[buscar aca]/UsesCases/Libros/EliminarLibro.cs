@@ -21,7 +21,7 @@ namespace TP_integrador_2026.Application.UseCases.Libros
                     "No se encontró un libro con el código indicado.");
             }
 
-            if (_libroRepository.TienePrestamos(libro.Id))
+            if (_libroRepository.TienePrestamosActivos(libro.Id))
             {
                 throw new InvalidOperationException(
                     "No se puede eliminar el libro porque tiene préstamos asociados.");
