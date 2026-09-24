@@ -7,6 +7,7 @@ using TP_integrador_2026.Infrastructure.Persistence;
 using TP_integrador_2026.Infrastructure.Repositories;
 using TP_integrador_2026.Application.UseCases.Socios;
 using TP_integrador_2026.Domain.Entities;
+using TP_integrador_2026.Domain.Exceptions;
 using TP_integrador_2026.Application.UseCases.Prestamos;
 
 namespace TP_integrador_2026
@@ -30,6 +31,7 @@ namespace TP_integrador_2026
             services.AddScoped<ILibroRepository, LibroRepository>();
             services.AddScoped<ISocioRepository, SocioRepository>();
             services.AddScoped<IPrestamoRepository, PrestamoRepository>();
+            services.AddScoped<IBusquedaSocioRepository, BusquedaSocioRepository>();
 
             // Casos de uso
             services.AddScoped<RegistrarLibro>();
@@ -46,6 +48,7 @@ namespace TP_integrador_2026
             services.AddScoped<RegistrarPrestamo>();
             services.AddScoped<RegistrarDevolucion>();
             services.AddScoped<ConsultarPrestamosActivos>();
+            services.AddScoped<ConsultarPrestamosSocio>();
 
             using var serviceProvider = services.BuildServiceProvider();
 
@@ -76,6 +79,7 @@ namespace TP_integrador_2026
             var registrarPrestamo =scope.ServiceProvider.GetRequiredService<RegistrarPrestamo>();
             var registrarDevolucion = scope.ServiceProvider.GetRequiredService<RegistrarDevolucion>();
             var consultarPrestamosActivos = scope.ServiceProvider.GetRequiredService<ConsultarPrestamosActivos>();
+            var consultarPrestamosSocio = scope.ServiceProvider.GetRequiredService<ConsultarPrestamosSocio>();
 
             while (!salir)
             {
@@ -97,7 +101,8 @@ namespace TP_integrador_2026
                 Console.WriteLine("10. Registrar préstamo");
                 Console.WriteLine("11. Registrar devolución");
                 Console.WriteLine("12. Ver préstamos activos");
-                Console.WriteLine("13. Salir");
+                Console.WriteLine("13. Consultar préstamos de un socio");
+                Console.WriteLine("14. Salir");
 
                 Console.WriteLine();
                 Console.Write("Seleccione una opción: ");
@@ -159,6 +164,10 @@ namespace TP_integrador_2026
                             break;
 
                         case "13":
+                            ConsultarPrestamosDeSocioMenu(consultarPrestamosSocio);
+                            break;
+
+                        case "14":
                             Console.WriteLine("Saliendo de UNAJBOOKS...");
                             salir = true;
                             break;
@@ -610,6 +619,85 @@ static void ConsultarPrestamosActivosMenu(
     }
 }
 
+    static void ConsultarPrestamosDeSocioMenu(
+        ConsultarPrestamosSocio consultarPrestamosSocio)
+    {
+        Console.WriteLine("---------- PRÉSTAMOS DE UN SOCIO ----------");
+        Console.WriteLine();
+
+        Console.Write("DNI del socio: ");
+        string? dniTexto = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(dniTexto))
+        {
+            Console.WriteLine("Debe ingresar un DNI.");
+            return;
+        }
+
+        if (!int.TryParse(dniTexto, out int dni) || dni <= 0)
+        {
+            Console.WriteLine("El DNI debe ser un número entero.");
+            return;
+        }
+
+        Socio socio;
+
+        try
+        {
+            socio = consultarPrestamosSocio.BuscarSocio(dni);
+        }
+        catch (NotFoundException)
+        {
+            Console.WriteLine("El DNI no existe en el sistema.");
+            return;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Socio encontrado.");
+        Console.WriteLine($"ID: {socio.Id}");
+        Console.WriteLine($"Nombre: {socio.Nombre}");
+        Console.WriteLine($"Apellido: {socio.Apellido}");
+        Console.WriteLine($"DNI: {socio.DNI}");
+        Console.WriteLine(
+            $"Tipo: {(socio is SocioPremium ? "Premium" : "Normal")}");
+        Console.WriteLine();
+
+        var prestamos = consultarPrestamosSocio.Ejecutar(socio);
+
+        Console.WriteLine(
+            $"El socio tiene {prestamos.Count} préstamo(s) registrado(s):");
+        Console.WriteLine();
+
+        if (prestamos.Count == 0)
+        {
+            Console.WriteLine("No hay préstamos para mostrar.");
+            return;
+        }
+
+        foreach (var prestamo in prestamos)
+        {
+            string estado = prestamo.EstaActivo
+                ? "Activo"
+                : "Devuelto";
+
+            string vencido = prestamo.EstaActivo &&
+                prestamo.FechaVencimiento.Date < DateTime.UtcNow.Date
+                ? " (VENCIDO)"
+                : "";
+
+            string fechaDevo = prestamo.FechaDevolucion.HasValue
+                ? prestamo.FechaDevolucion.ToString()!
+                : "(sin devolver)";
+
+            Console.WriteLine(
+                $"ID: {prestamo.Id} | " +
+                $"Libro: {prestamo.Libro.Titulo} | " +
+                $"Fecha préstamo: {prestamo.FechaPrestamo} | " +
+                $"Vence: {prestamo.FechaVencimiento} | " +
+                $"Devolución: {fechaDevo} | " +
+                $"Estado: {estado}{vencido}");
+        }
+    }
 }
 }
     

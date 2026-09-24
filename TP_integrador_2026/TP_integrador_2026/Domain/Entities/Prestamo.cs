@@ -30,7 +30,6 @@ namespace TP_integrador_2026.Domain.Entities
 
             FechaPrestamo = DateTime.UtcNow;
 
-            // El plazo se determina mediante polimorfismo
             FechaVencimiento =
                 FechaPrestamo.AddDays(socio.DiasPrestamo);
 
