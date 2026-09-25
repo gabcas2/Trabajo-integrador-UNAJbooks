@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TP_integrador_2026.Application.Interfaces;
@@ -7,6 +7,8 @@ using TP_integrador_2026.Infrastructure.Persistence;
 using TP_integrador_2026.Infrastructure.Repositories;
 using TP_integrador_2026.Application.UseCases.Socios;
 using TP_integrador_2026.Domain.Entities;
+using TP_integrador_2026.Domain.Exceptions;
+using TP_integrador_2026.Application.UseCases.Prestamos;
 
 namespace TP_integrador_2026
 {
@@ -28,14 +30,25 @@ namespace TP_integrador_2026
             // Repositorios
             services.AddScoped<ILibroRepository, LibroRepository>();
             services.AddScoped<ISocioRepository, SocioRepository>();
+            services.AddScoped<IPrestamoRepository, PrestamoRepository>();
+            services.AddScoped<IBusquedaSocioRepository, BusquedaSocioRepository>();
 
             // Casos de uso
             services.AddScoped<RegistrarLibro>();
             services.AddScoped<BuscarLibro>();
             services.AddScoped<EliminarLibro>();
             services.AddScoped<ConsultarLibros>();
+
             services.AddScoped<RegistrarSocio>();
             services.AddScoped<BuscarSocio>();
+            services.AddScoped<ConsultarSocios>();
+            services.AddScoped<ModificarSocio>();
+            services.AddScoped<EliminarSocio>();
+
+            services.AddScoped<RegistrarPrestamo>();
+            services.AddScoped<RegistrarDevolucion>();
+            services.AddScoped<ConsultarPrestamosActivos>();
+            services.AddScoped<ConsultarPrestamosSocio>();
 
             using var serviceProvider = services.BuildServiceProvider();
 
@@ -53,11 +66,20 @@ namespace TP_integrador_2026
             var eliminarLibro =
                 scope.ServiceProvider.GetRequiredService<EliminarLibro>();
 
+
             bool salir = false;
             //Socios
             var registrarSocio =scope.ServiceProvider.GetRequiredService<RegistrarSocio>();
             var buscarSocio =scope.ServiceProvider.GetRequiredService<BuscarSocio>();    
-            
+            var consultarSocios = scope.ServiceProvider.GetRequiredService<ConsultarSocios>();
+            var modificarSocio =scope.ServiceProvider.GetRequiredService<ModificarSocio>();
+            var eliminarSocio =scope.ServiceProvider.GetRequiredService<EliminarSocio>();
+
+            //Prestamos
+            var registrarPrestamo =scope.ServiceProvider.GetRequiredService<RegistrarPrestamo>();
+            var registrarDevolucion = scope.ServiceProvider.GetRequiredService<RegistrarDevolucion>();
+            var consultarPrestamosActivos = scope.ServiceProvider.GetRequiredService<ConsultarPrestamosActivos>();
+            var consultarPrestamosSocio = scope.ServiceProvider.GetRequiredService<ConsultarPrestamosSocio>();
 
             while (!salir)
             {
@@ -73,7 +95,15 @@ namespace TP_integrador_2026
                 Console.WriteLine("4. Eliminar libro");
                 Console.WriteLine("5. Registrar socio");
                 Console.WriteLine("6. Buscar socio por DNI");
-                Console.WriteLine("7. Salir");
+                Console.WriteLine("7. Consultar todos los socios");
+                Console.WriteLine("8. Modificar Socio");
+                Console.WriteLine("9. Eliminar Socio");
+                Console.WriteLine("10. Registrar préstamo");
+                Console.WriteLine("11. Registrar devolución");
+                Console.WriteLine("12. Ver préstamos activos");
+                Console.WriteLine("13. Consultar préstamos de un socio");
+                Console.WriteLine("14. Salir");
+
                 Console.WriteLine();
                 Console.Write("Seleccione una opción: ");
 
@@ -110,8 +140,36 @@ namespace TP_integrador_2026
                             break;
 
                         case "7":
-                            salir = true;
+                            ConsultarSociosMenu(consultarSocios);
+                            break;
+
+                        case "8":
+                            ModificarSocioMenu(modificarSocio);
+                            break;
+
+                        case "9":
+                            EliminarSocioMenu(eliminarSocio);
+                            break;
+
+                        case "10":
+                            RegistrarPrestamoMenu(registrarPrestamo);
+                            break;
+
+                        case "11":
+                            RegistrarDevolucionMenu(registrarDevolucion);
+                            break;
+
+                        case "12":
+                            ConsultarPrestamosActivosMenu(consultarPrestamosActivos);
+                            break;
+
+                        case "13":
+                            ConsultarPrestamosDeSocioMenu(consultarPrestamosSocio);
+                            break;
+
+                        case "14":
                             Console.WriteLine("Saliendo de UNAJBOOKS...");
+                            salir = true;
                             break;
 
                         default:
@@ -134,8 +192,7 @@ namespace TP_integrador_2026
             }
         }
 
-        //estos metodos despues deberian ir a otra clase para que no quede tan grande el main
-
+        //libros
         static void RegistrarLibroMenu(RegistrarLibro registrarLibro)
         {
         
@@ -229,7 +286,7 @@ namespace TP_integrador_2026
             Console.WriteLine();
             Console.WriteLine("Libro eliminado correctamente.");
         }
-
+//Socios
         static void RegistrarSocioMenu(RegistrarSocio registrarSocio)
 {
     Console.WriteLine("---------- REGISTRAR SOCIO ----------");
@@ -313,7 +370,336 @@ static void BuscarSocioMenu(BuscarSocio buscarSocio)
     Console.WriteLine($"Dirección: {socio.Direccion}");
     Console.WriteLine($"Tipo: {(socio is SocioPremium ? "Premium" : "Normal")}");
 }
+    
+
+    static void ConsultarSociosMenu(ConsultarSocios consultarSocios)
+    {
+        Console.WriteLine("---------- SOCIOS ----------");
+        Console.WriteLine();
+
+        var socios = consultarSocios.Ejecutar();
+
+        if (socios.Count == 0)
+        {
+            Console.WriteLine("No hay socios registrados.");
+            return;
+        }
+
+        foreach (var socio in socios)
+        {
+            string tipo = socio is SocioPremium ? "Premium" : "Normal";
+
+            Console.WriteLine(
+                $"ID: {socio.Id} | " +
+                $"Nombre: {socio.Nombre} | " +
+                $"Apellido: {socio.Apellido} | " +
+                $"DNI: {socio.DNI} | " +
+                $"Teléfono: {socio.NumTelefono} | " +
+                $"Dirección: {socio.Direccion} | " +
+                $"Tipo: {tipo}");
+        }
+    }
+    static void ModificarSocioMenu(ModificarSocio modificarSocio)
+{
+    Console.WriteLine("---------- MODIFICAR SOCIO ----------");
+    Console.WriteLine();
+
+    Console.Write("DNI del socio: ");
+    string dniTexto = Console.ReadLine() ?? "";
+
+    if (!int.TryParse(dniTexto, out int dni))
+    {
+        Console.WriteLine("El DNI debe ser un número entero.");
+        return;
     }
 
-    
+    int? nuevoTelefono = null;
+    string? nuevaDireccion = null;
+    bool? nuevoEsPremium = null;
+
+    bool tieneCambios = false;
+    bool finalizar = false;
+
+    while (!finalizar)
+    {
+        Console.WriteLine();
+        Console.WriteLine("¿Qué dato desea modificar?");
+        Console.WriteLine("1. Teléfono");
+        Console.WriteLine("2. Dirección");
+        Console.WriteLine("3. Tipo de socio");
+        Console.WriteLine("4. Finalizar");
+        Console.WriteLine();
+
+        Console.Write("Seleccione una opción: ");
+        string opcion = Console.ReadLine() ?? "";
+
+        Console.WriteLine();
+
+        switch (opcion)
+        {
+            case "1":
+                Console.Write("Nuevo teléfono: ");
+                string telefonoTexto = Console.ReadLine() ?? "";
+
+                if (!int.TryParse(telefonoTexto, out int telefono))
+                {
+                    Console.WriteLine("El teléfono debe ser un número entero.");
+                    break;
+                }
+
+                nuevoTelefono = telefono;
+                tieneCambios = true;
+
+                Console.WriteLine("Teléfono seleccionado para modificar.");
+                break;
+
+            case "2":
+                Console.Write("Nueva dirección: ");
+                string direccion = Console.ReadLine() ?? "";
+
+                nuevaDireccion = direccion;
+                tieneCambios = true;
+
+                Console.WriteLine("Dirección seleccionada para modificar.");
+                break;
+
+            case "3":
+                Console.Write("¿El socio será Premium? (s/n): ");
+                string premiumTexto = Console.ReadLine() ?? "";
+
+                if (premiumTexto.Equals(
+                    "s",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    nuevoEsPremium = true;
+                    tieneCambios = true;
+
+                    Console.WriteLine("El socio será Premium.");
+                }
+                else if (premiumTexto.Equals(
+                    "n",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    nuevoEsPremium = false;
+                    tieneCambios = true;
+
+                    Console.WriteLine("El socio será Normal.");
+                }
+                else
+                {
+                    Console.WriteLine("Debe ingresar 's' o 'n'.");
+                }
+
+                break;
+
+            case "4":
+                finalizar = true;
+                break;
+
+            default:
+                Console.WriteLine("Opción no válida.");
+                break;
+        }
+    }
+
+    if (!tieneCambios)
+    {
+        Console.WriteLine();
+        Console.WriteLine("No se seleccionó ningún dato para modificar.");
+        return;
+    }
+
+    modificarSocio.Ejecutar(
+        dni,
+        nuevoTelefono,
+        nuevaDireccion,
+        nuevoEsPremium);
+
+    Console.WriteLine();
+    Console.WriteLine("Socio modificado correctamente.");
 }
+static void EliminarSocioMenu(EliminarSocio eliminarSocio)
+{
+    Console.WriteLine("---------- ELIMINAR SOCIO ----------");
+    Console.WriteLine();
+
+    Console.Write("DNI del socio: ");
+    string dniTexto = Console.ReadLine() ?? "";
+
+    if (!int.TryParse(dniTexto, out int dni))
+    {
+        Console.WriteLine("El DNI debe ser un número entero.");
+        return;
+    }
+
+    eliminarSocio.Ejecutar(dni);
+
+    Console.WriteLine();
+    Console.WriteLine("Socio eliminado correctamente.");
+}
+//Prestamos
+static void RegistrarPrestamoMenu(RegistrarPrestamo registrarPrestamo)
+{
+    Console.WriteLine("---------- REGISTRAR PRÉSTAMO ----------");
+    Console.WriteLine();
+
+    Console.Write("DNI del socio: ");
+    string dniTexto = Console.ReadLine() ?? "";
+
+    if (!int.TryParse(dniTexto, out int dni))
+    {
+        Console.WriteLine("El DNI debe ser un número entero.");
+        return;
+    }
+
+    Console.Write("Código del libro: ");
+    string codigoLibro = Console.ReadLine() ?? "";
+
+    var prestamo = registrarPrestamo.Ejecutar(
+        dni,
+        codigoLibro);
+
+    Console.WriteLine();
+    Console.WriteLine("Préstamo registrado correctamente.");
+    Console.WriteLine($"ID del préstamo: {prestamo.Id}");
+    Console.WriteLine($"Fecha del préstamo: {prestamo.FechaPrestamo}");
+    Console.WriteLine($"Fecha de vencimiento: {prestamo.FechaVencimiento}");
+}
+
+static void RegistrarDevolucionMenu(RegistrarDevolucion registrarDevolucion)
+{
+    Console.WriteLine("---------- REGISTRAR DEVOLUCIÓN ----------");
+    Console.WriteLine();
+
+    Console.Write("ID del préstamo: ");
+    string idTexto = Console.ReadLine() ?? "";
+
+    if (!int.TryParse(idTexto, out int prestamoId))
+    {
+        Console.WriteLine("El ID del préstamo debe ser un número entero.");
+        return;
+    }
+
+    var prestamo = registrarDevolucion.Ejecutar(prestamoId);
+
+    Console.WriteLine();
+    Console.WriteLine("Devolución registrada correctamente.");
+    Console.WriteLine($"ID del préstamo: {prestamo.Id}");
+    Console.WriteLine($"Título del libro: {prestamo.Libro.Titulo}");
+    Console.WriteLine($"Fecha de devolución: {prestamo.FechaDevolucion}");
+    Console.WriteLine($"Stock actualizado: {prestamo.Libro.Stock}");
+}
+
+static void ConsultarPrestamosActivosMenu(
+    ConsultarPrestamosActivos consultarPrestamosActivos)
+{
+    Console.WriteLine("---------- PRÉSTAMOS ACTIVOS ----------");
+    Console.WriteLine();
+
+    var prestamos = consultarPrestamosActivos.Ejecutar();
+
+    if (prestamos.Count == 0)
+    {
+        Console.WriteLine("No hay préstamos activos.");
+        return;
+    }
+
+    foreach (var prestamo in prestamos)
+    {
+        string? socio = prestamo.Socio == null
+            ? "(socio eliminado)"
+            : $"{prestamo.Socio.Nombre} {prestamo.Socio.Apellido}";
+
+        Console.WriteLine(
+            $"ID: {prestamo.Id} | " +
+            $"Libro: {prestamo.Libro.Titulo} | " +
+            $"Socio: {socio} | " +
+            $"Fecha préstamo: {prestamo.FechaPrestamo} | " +
+            $"Vence: {prestamo.FechaVencimiento}");
+    }
+}
+
+    static void ConsultarPrestamosDeSocioMenu(
+        ConsultarPrestamosSocio consultarPrestamosSocio)
+    {
+        Console.WriteLine("---------- PRÉSTAMOS DE UN SOCIO ----------");
+        Console.WriteLine();
+
+        Console.Write("DNI del socio: ");
+        string? dniTexto = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(dniTexto))
+        {
+            Console.WriteLine("Debe ingresar un DNI.");
+            return;
+        }
+
+        if (!int.TryParse(dniTexto, out int dni) || dni <= 0)
+        {
+            Console.WriteLine("El DNI debe ser un número entero.");
+            return;
+        }
+
+        Socio socio;
+
+        try
+        {
+            socio = consultarPrestamosSocio.BuscarSocio(dni);
+        }
+        catch (NotFoundException)
+        {
+            Console.WriteLine("El DNI no existe en el sistema.");
+            return;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Socio encontrado.");
+        Console.WriteLine($"ID: {socio.Id}");
+        Console.WriteLine($"Nombre: {socio.Nombre}");
+        Console.WriteLine($"Apellido: {socio.Apellido}");
+        Console.WriteLine($"DNI: {socio.DNI}");
+        Console.WriteLine(
+            $"Tipo: {(socio is SocioPremium ? "Premium" : "Normal")}");
+        Console.WriteLine();
+
+        var prestamos = consultarPrestamosSocio.Ejecutar(socio);
+
+        Console.WriteLine(
+            $"El socio tiene {prestamos.Count} préstamo(s) registrado(s):");
+        Console.WriteLine();
+
+        if (prestamos.Count == 0)
+        {
+            Console.WriteLine("No hay préstamos para mostrar.");
+            return;
+        }
+
+        foreach (var prestamo in prestamos)
+        {
+            string estado = prestamo.EstaActivo
+                ? "Activo"
+                : "Devuelto";
+
+            string vencido = prestamo.EstaActivo &&
+                prestamo.FechaVencimiento.Date < DateTime.UtcNow.Date
+                ? " (VENCIDO)"
+                : "";
+
+            string fechaDevo = prestamo.FechaDevolucion.HasValue
+                ? prestamo.FechaDevolucion.ToString()!
+                : "(sin devolver)";
+
+            Console.WriteLine(
+                $"ID: {prestamo.Id} | " +
+                $"Libro: {prestamo.Libro.Titulo} | " +
+                $"Fecha préstamo: {prestamo.FechaPrestamo} | " +
+                $"Vence: {prestamo.FechaVencimiento} | " +
+                $"Devolución: {fechaDevo} | " +
+                $"Estado: {estado}{vencido}");
+        }
+    }
+}
+}
+    
+
+    

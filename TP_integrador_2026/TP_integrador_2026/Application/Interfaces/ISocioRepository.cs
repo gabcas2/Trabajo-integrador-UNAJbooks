@@ -9,5 +9,7 @@ namespace TP_integrador_2026.Application.Interfaces
         List<Socio> ObtenerTodos();
         void Eliminar(Socio socio);
         bool ExisteDNI(int dni);
+
+        void Actualizar(Socio socio, bool esPremium);
     }
 }

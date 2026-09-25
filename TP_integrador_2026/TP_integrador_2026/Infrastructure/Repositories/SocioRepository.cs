@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TP_integrador_2026.Application.Interfaces;
 using TP_integrador_2026.Domain.Entities;
 using TP_integrador_2026.Infrastructure.Persistence;
@@ -45,6 +46,23 @@ namespace TP_integrador_2026.Infrastructure.Repositories
         {
             return _context.Socios
                 .Any(s => s.DNI == dni);
+        }
+
+        public void Actualizar(Socio socio, bool esPremium)
+        {
+            string discriminator = esPremium
+                ? "SocioPremium"
+                : "Socio";
+
+            _context.Database.ExecuteSqlInterpolated($@"
+                UPDATE ""Socios""
+                SET
+                    ""NumTelefono"" = {socio.NumTelefono},
+                    ""Direccion"" = {socio.Direccion},
+                    ""Discriminator"" = {discriminator}
+                WHERE ""Id"" = {socio.Id}");
+
+            _context.Entry(socio).State = EntityState.Detached;
         }
     }
 }

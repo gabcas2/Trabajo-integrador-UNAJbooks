@@ -68,9 +68,11 @@ namespace TP_integrador_2026.Infrastructure.Persistence
                       .IsRequired()
                       .HasMaxLength(100);
 
-                entity.Property(s => s.DNI).IsRequired();
+                entity.Property(s => s.DNI)
+                      .IsRequired();
 
-                entity.Property(s => s.NumTelefono).IsRequired();
+                entity.Property(s => s.NumTelefono)
+                      .IsRequired();
 
                 entity.Property(s => s.Direccion)
                       .HasMaxLength(200);
@@ -93,6 +95,9 @@ namespace TP_integrador_2026.Infrastructure.Persistence
 
                 entity.Property(p => p.FechaPrestamo)
                       .IsRequired();
+                      
+                entity.Property(p => p.FechaVencimiento)
+                        .IsRequired();
 
                 entity.Property(p => p.FechaDevolucion)
                       .IsRequired(false);
@@ -105,7 +110,9 @@ namespace TP_integrador_2026.Infrastructure.Persistence
                 entity.HasOne(p => p.Socio)
                       .WithMany()
                       .HasForeignKey(p => p.SocioId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.SetNull);
+
+
             });
         }
     }
