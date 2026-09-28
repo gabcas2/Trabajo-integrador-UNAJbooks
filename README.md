@@ -23,6 +23,8 @@ de libros correspondiente a:
 - Buscar un libro por código
 - Consultar todos los libros
 - Eliminar un libro
+- Consultar stock de un libro
+- Consultar que libros pidio prestado un socio
 
 La aplicación utiliza PostgreSQL como sistema de persistencia.
 
