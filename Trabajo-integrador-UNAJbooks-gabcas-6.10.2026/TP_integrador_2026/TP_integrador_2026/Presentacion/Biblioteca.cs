@@ -233,7 +233,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             }
         }  
 
-        static void ConsultarLibrosPrestadosASocioMenu(ConsultarLibrosPrestadosASocio consultarLibrosPrestados)//
+        static void ConsultarLibrosPrestadosASocioMenu(ConsultarLibrosPrestadosASocio consultarLibrosPrestados)
         {
             try
             {
