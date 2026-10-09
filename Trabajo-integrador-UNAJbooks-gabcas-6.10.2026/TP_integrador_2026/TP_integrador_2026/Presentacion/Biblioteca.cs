@@ -39,9 +39,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             Console.Write("¿Es socio premium? (s/n): ");
             string premiumTexto = Console.ReadLine() ?? "";
 
-            bool esPremium = premiumTexto.Equals(
-                "s",
-                StringComparison.OrdinalIgnoreCase);
+            bool esPremium = premiumTexto.Equals("s", StringComparison.OrdinalIgnoreCase);
 
             var socio = registrarSocio.Ejecutar(
                 nombre,
@@ -341,6 +339,6 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
 
     public class DatoLibroInvalidoException : Exception
     {
-        public DatoLibroInvalidoException(string mensaje) : base(mensaje) { }//esta es la buena
+        public DatoLibroInvalidoException(string mensaje) : base(mensaje) { }
     }
 }
