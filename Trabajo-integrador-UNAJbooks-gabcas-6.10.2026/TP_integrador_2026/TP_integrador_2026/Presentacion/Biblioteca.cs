@@ -5,343 +5,342 @@ using TP_integrador_2026.Application.UseCases.Libros;
 namespace TP_integrador_2026.Presentacion.Biblioteca
 {
     static void RegistrarSocioMenu(RegistrarSocio registrarSocio)
+    {
+        try
         {
-            try
+            Console.WriteLine("---------- REGISTRAR SOCIO ----------");
+            Console.WriteLine();
+
+            Console.Write("Nombre: ");
+            string nombre = Console.ReadLine() ?? "";
+
+            Console.Write("Apellido: ");
+            string apellido = Console.ReadLine() ?? "";
+
+            Console.Write("DNI: ");
+            string dniTexto = Console.ReadLine() ?? "";
+
+            if (!int.TryParse(dniTexto, out int dni))
             {
-                Console.WriteLine("---------- REGISTRAR SOCIO ----------");
-                Console.WriteLine();
-
-                Console.Write("Nombre: ");
-                string nombre = Console.ReadLine() ?? "";
-
-                Console.Write("Apellido: ");
-                string apellido = Console.ReadLine() ?? "";
-
-                Console.Write("DNI: ");
-                string dniTexto = Console.ReadLine() ?? "";
-
-                if(!int.TryParse(dniTexto, out int dni))
-                {
-                    throw new FormatException("El DNI debe ser un número entero.");
-                }
-
-                Console.Write("Teléfono: ");
-                string telefonoTexto = Console.ReadLine() ?? "";
-
-                if (!int.TryParse(telefonoTexto, out int numTelefono))
-                {
-                    throw new FormatException("El teléfono debe ser un número entero.");
-                }
-
-                Console.Write("Dirección: ");
-                string direccion = Console.ReadLine() ?? "";
-
-                Console.Write("¿Es socio premium? (s/n): ");
-                string premiumTexto = Console.ReadLine() ?? "";
-
-                bool esPremium = premiumTexto.Equals(
-                    "s",
-                    StringComparison.OrdinalIgnoreCase);
-
-                var socio = registrarSocio.Ejecutar(
-                    nombre,
-                    apellido,
-                    dni,
-                    numTelefono,
-                    direccion,
-                    esPremium);
-
-                Console.WriteLine();
-                Console.WriteLine("Socio registrado correctamente.");
-                Console.WriteLine($"ID: {socio.Id}");
-                Console.WriteLine($"Nombre: {socio.Nombre}");
-                Console.WriteLine($"Apellido: {socio.Apellido}");
-                Console.WriteLine($"DNI: {socio.DNI}");
-                Console.WriteLine($"Teléfono: {socio.NumTelefono}");
-                Console.WriteLine($"Dirección: {socio.Direccion}");
-                Console.WriteLine($"Tipo: {(esPremium ? "Premium" : "Normal")}");
+                throw new FormatException("El DNI debe ser un número entero.");
             }
 
-            catch(FormatException ex)
+            Console.Write("Teléfono: ");
+            string telefonoTexto = Console.ReadLine() ?? "";
+
+            if (!int.TryParse(telefonoTexto, out int numTelefono))
             {
-                Console.WriteLine($"[Error de formato]: {ex.Message}");
+                throw new FormatException("El teléfono debe ser un número entero.");
             }
-            
-            catch(Exception ex)
-            {
-                Console.WriteLine($"[Error al registrar socio]: {ex.Message}");
-            }
+
+            Console.Write("Dirección: ");
+            string direccion = Console.ReadLine() ?? "";
+
+            Console.Write("¿Es socio premium? (s/n): ");
+            string premiumTexto = Console.ReadLine() ?? "";
+
+            bool esPremium = premiumTexto.Equals(
+                "s",
+                StringComparison.OrdinalIgnoreCase);
+
+            var socio = registrarSocio.Ejecutar(
+                nombre,
+                apellido,
+                dni,
+                numTelefono,
+                direccion,
+                esPremium);
+
+            Console.WriteLine();
+            Console.WriteLine("Socio registrado correctamente.");
+            Console.WriteLine($"ID: {socio.Id}");
+            Console.WriteLine($"Nombre: {socio.Nombre}");
+            Console.WriteLine($"Apellido: {socio.Apellido}");
+            Console.WriteLine($"DNI: {socio.DNI}");
+            Console.WriteLine($"Teléfono: {socio.NumTelefono}");
+            Console.WriteLine($"Dirección: {socio.Direccion}");
+            Console.WriteLine($"Tipo: {(esPremium ? "Premium" : "Normal")}");
         }
-
-        static void BuscarSocioMenu(BuscarSocio buscarSocio)
+        catch (FormatException ex)
         {
-            try
-            {
-                Console.WriteLine("---------- BUSCAR SOCIO ----------");
-                Console.WriteLine();
-
-                Console.Write("DNI del socio: ");
-                string dniTexto = Console.ReadLine() ?? "";
-
-                if (!int.TryParse(dniTexto, out int dni))
-                {
-                    throw new FormatException("El DNI debe ser un número entero.");
-                }
-
-                var socio = buscarSocio.Ejecutar(dni);
-
-                Console.WriteLine();
-                Console.WriteLine("Socio encontrado.");
-                Console.WriteLine($"ID: {socio.Id}");
-                Console.WriteLine($"Nombre: {socio.Nombre}");
-                Console.WriteLine($"Apellido: {socio.Apellido}");
-                Console.WriteLine($"DNI: {socio.DNI}");
-                Console.WriteLine($"Teléfono: {socio.NumTelefono}");
-                Console.WriteLine($"Dirección: {socio.Direccion}");
-                Console.WriteLine($"Tipo: {(socio is SocioPremium ? "Premium" : "Normal")}");
-            }
-            catch(FormatException ex)
-            {
-                Console.WriteLine($"[Error de formato]: {ex.Message}");
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"[Error al buscar socio]: {ex.Message}");
-            }
+            Console.WriteLine($"[Error de formato]: {ex.Message}");
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Error al registrar socio]: {ex.Message}");
+        }
+    }
+
+    static void BuscarSocioMenu(BuscarSocio buscarSocio)
+    {
+        try
+        {
+            Console.WriteLine("---------- BUSCAR SOCIO ----------");
+            Console.WriteLine();
+
+            Console.Write("DNI del socio: ");
+            string dniTexto = Console.ReadLine() ?? "";
+
+            if (!int.TryParse(dniTexto, out int dni))
+            {
+                throw new FormatException("El DNI debe ser un número entero.");
+            }
+
+            var socio = buscarSocio.Ejecutar(dni);
+
+            Console.WriteLine();
+            Console.WriteLine("Socio encontrado.");
+            Console.WriteLine($"ID: {socio.Id}");
+            Console.WriteLine($"Nombre: {socio.Nombre}");
+            Console.WriteLine($"Apellido: {socio.Apellido}");
+            Console.WriteLine($"DNI: {socio.DNI}");
+            Console.WriteLine($"Teléfono: {socio.NumTelefono}");
+            Console.WriteLine($"Dirección: {socio.Direccion}");
+            Console.WriteLine($"Tipo: {(socio is SocioPremium ? "Premium" : "Normal")}");
+        }
+        catch (FormatException ex)
+        {
+            Console.WriteLine($"[Error de formato]: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Error al buscar socio]: {ex.Message}");
+        }
+    }
 
     static void BuscarLibroMenu(BuscarLibro buscarLibro)
+    {
+        try
         {
-            try
-                {
-                    Console.WriteLine("---------- BUSCAR LIBRO ----------");
-                    Console.WriteLine();
+            Console.WriteLine("---------- BUSCAR LIBRO ----------");
+            Console.WriteLine();
 
-                    Console.Write("Código del libro: ");
-                    string codigo = Console.ReadLine() ?? "";
+            Console.Write("Código del libro: ");
+            string codigo = Console.ReadLine() ?? "";
 
-                    var libro = buscarLibro.Ejecutar(codigo);
+            var libro = buscarLibro.Ejecutar(codigo);
 
-                    Console.WriteLine();
-                    Console.WriteLine("Libro encontrado.");
-                    Console.WriteLine($"ID: {libro.Id}");
-                    Console.WriteLine($"Código: {libro.Codigo}");
-                    Console.WriteLine($"Título: {libro.Titulo}");
-                    Console.WriteLine($"Autor: {libro.Autor}");
-                    Console.WriteLine($"Editorial: {libro.Editorial}");
-                    Console.WriteLine($"Stock: {libro.Stock}");
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine($"[Error al buscar libro]: {ex.Message}");
-                }
+            Console.WriteLine();
+            Console.WriteLine("Libro encontrado.");
+            Console.WriteLine($"ID: {libro.Id}");
+            Console.WriteLine($"Código: {libro.Codigo}");
+            Console.WriteLine($"Título: {libro.Titulo}");
+            Console.WriteLine($"Autor: {libro.Autor}");
+            Console.WriteLine($"Editorial: {libro.Editorial}");
+            Console.WriteLine($"Stock: {libro.Stock}");
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Error al buscar libro]: {ex.Message}");
+        }
+    }
 
     static void ConsultarLibrosMenu(ConsultarLibros consultarLibros)
+    {
+        try
         {
-            try
+            Console.WriteLine("---------- LIBROS ----------");
+            Console.WriteLine();
+
+            var libros = consultarLibros.Ejecutar();
+
+            if (libros.Count == 0)
             {
-                Console.WriteLine("---------- LIBROS ----------");
-                Console.WriteLine();
+                Console.WriteLine("No hay libros registrados.");
+                return;
+            }
 
-                var libros = consultarLibros.Ejecutar();
-
-                if (libros.Count == 0)
-                {
-                    Console.WriteLine("No hay libros registrados.");
-                    return;
-                }
-
-                foreach (var libro in libros)
-                {
-                    Console.WriteLine(
-                        $"ID: {libro.Id} | " +
-                        $"Código: {libro.Codigo} | " +
-                        $"Título: {libro.Titulo} | " +
-                        $"Autor: {libro.Autor} | " +
-                        $"Stock: {libro.Stock}");
-                }
-            }catch(Exception ex)
+            foreach (var libro in libros)
             {
-                Console.WriteLine($"[Error al consultar libros]: {ex.Message}");
-            }    
+                Console.WriteLine(
+                    $"ID: {libro.Id} | " +
+                    $"Código: {libro.Codigo} | " +
+                    $"Título: {libro.Titulo} | " +
+                    $"Autor: {libro.Autor} | " +
+                    $"Stock: {libro.Stock}");
+            }
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Error al consultar libros]: {ex.Message}");
+        }
+    }
 
     static void EliminarLibroMenu(EliminarLibro eliminarLibro)
+    {
+        try
         {
-            try
-            {
-                Console.WriteLine("---------- ELIMINAR LIBRO ----------");
-                Console.WriteLine();
+            Console.WriteLine("---------- ELIMINAR LIBRO ----------");
+            Console.WriteLine();
 
-                Console.Write("Código del libro: ");
-                string codigo = Console.ReadLine() ?? "";
+            Console.Write("Código del libro: ");
+            string codigo = Console.ReadLine() ?? "";
 
-                eliminarLibro.Ejecutar(codigo);
+            eliminarLibro.Ejecutar(codigo);
 
-                Console.WriteLine();
-                Console.WriteLine("Libro eliminado correctamente.");
-            }catch(Exception ex)
-            {
-                Console.WriteLine($"[Error al eliminar libro]: {ex.Message}");
-            }    
+            Console.WriteLine();
+            Console.WriteLine("Libro eliminado correctamente.");
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Error al eliminar libro]: {ex.Message}");
+        }
+    }
 
     static void RegistrarLibroMenu(RegistrarLibro registrarLibro)
+    {
+        try
         {
-            try
+            Console.WriteLine("---------- REGISTRAR LIBRO ----------");
+            Console.WriteLine();
+
+            Console.Write("Título: ");
+            string titulo = Console.ReadLine() ?? "";
+
+            Console.Write("Autor: ");
+            string autor = Console.ReadLine() ?? "";
+
+            Console.Write("Editorial: ");
+            string editorial = Console.ReadLine() ?? "";
+
+            Console.Write("Stock: ");
+            string stockTexto = Console.ReadLine() ?? "";
+
+            if (!int.TryParse(stockTexto, out int stock))
             {
-                Console.WriteLine("---------- REGISTRAR LIBRO ----------");
-                Console.WriteLine();
-
-                Console.Write("Título: ");
-                string titulo = Console.ReadLine() ?? "";
-
-                Console.Write("Autor: ");
-                string autor = Console.ReadLine() ?? "";
-
-                Console.Write("Editorial: ");
-                string editorial = Console.ReadLine() ?? "";
-
-                Console.Write("Stock: ");
-
-                string stockTexto = Console.ReadLine() ?? "";
-
-                if (!int.TryParse(stockTexto, out int stock))
-                {
-                    throw new DatoLibroInvalidoException("El stock debe ser un número entero.");
-                }
-
-                var libro = registrarLibro.Ejecutar(
-                    titulo,
-                    autor,
-                    editorial,
-                    stock);
-
-                Console.WriteLine();
-                Console.WriteLine("Libro registrado correctamente.");
-                Console.WriteLine($"ID: {libro.Id}");
-                Console.WriteLine($"Código: {libro.Codigo}");
+                throw new DatoLibroInvalidoException("El stock debe ser un número entero.");
             }
-            catch (DatoLibroInvalidoException ex)
-            {
-                Console.WriteLine($"[Error de validación]: {ex.Message}");
-            }
-            catch (StockInsuficienteException ex)
-            {
-                Console.WriteLine($"[Aviso de Stock]: {ex.Message}");
-            }
-        }  
 
-        static void ConsultarLibrosPrestadosASocioMenu(ConsultarLibrosPrestadosASocio consultarLibrosPrestados)
+            var libro = registrarLibro.Ejecutar(
+                titulo,
+                autor,
+                editorial,
+                stock);
+
+            Console.WriteLine();
+            Console.WriteLine("Libro registrado correctamente.");
+            Console.WriteLine($"ID: {libro.Id}");
+            Console.WriteLine($"Código: {libro.Codigo}");
+        }
+        catch (DatoLibroInvalidoException ex)
         {
-            try
-            {
-                    Console.WriteLine("---------- LIBROS PRESTADOS A UN SOCIO ----------");
-                    Console.WriteLine();
-
-                    Console.Write("DNI del socio: ");
-                    string dniTexto = Console.ReadLine() ?? "";
-
-                    if (!int.TryParse(dniTexto, out int dni))
-                    {
-                        throw new FormatException("El DNI debe ser un número entero.");
-                    }
-
-                    var librosPrestados = consultarLibrosPrestados.Ejecutar(dni);
-
-                    Console.WriteLine();
-                    
-                    if (librosPrestados == null)
-                    {
-                        Console.WriteLine("El socio no tiene libros prestados actualmente o no se encontró el socio.");
-                        return;
-                    }
-
-                    Console.WriteLine("Libros prestados encontrados:");
-                    foreach (var l in librosPrestados)
-                    {
-                        Console.WriteLine(
-                            $"ID: {l.Id} | " +
-                            $"Código: {l.Codigo} | " +
-                            $"Título: {l.Titulo} | ");
-                    }
-                }
-                catch (FormatException ex)
-                {
-                    Console.WriteLine($"[Error de formato]: {ex.Message}");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"[Error al consultar libros prestados]: {ex.Message}");
-                }
-        } 
-
-        static void ConsultarTodosLosPrestamosMenu(ListarPrestamos listarPrestamosUseCase)
+            Console.WriteLine($"[Error de validación]: {ex.Message}");
+        }
+        catch (StockInsuficienteException ex)
         {
-            try
+            Console.WriteLine($"[Aviso de Stock]: {ex.Message}");
+        }
+    }
+
+    static void ConsultarLibrosPrestadosASocioMenu(ConsultarLibrosPrestadosASocio consultarLibrosPrestados)
+    {
+        try
+        {
+            Console.WriteLine("---------- LIBROS PRESTADOS A UN SOCIO ----------");
+            Console.WriteLine();
+
+            Console.Write("DNI del socio: ");
+            string dniTexto = Console.ReadLine() ?? "";
+
+            if (!int.TryParse(dniTexto, out int dni))
             {
-                Console.WriteLine("---------- LISTADO GENERAL DE PRÉSTAMOS ----------");
-                Console.WriteLine();
-
-                var prestamos = listarPrestamosUseCase.Ejecutar();
-
-                if (prestamos == null || prestamos.Count == 0)
-                {
-                    Console.WriteLine("No hay préstamos registrados en el sistema.");
-                    return;
-                }
-
-                foreach (var prestamo in prestamos)
-                {
-                    string estado = prestamo.EstaActivo ? "ACTIVO" : "DEVUELTO";
-                    string fechaDevolucion = prestamo.FechaDevolucionReal?.ToString("dd/MM/yyyy") ?? "Pendiente";
-
-                    Console.WriteLine(
-                        $"ID: {prestamo.Id} | " +
-                        $"Socio: {prestamo.Socio.Nombre} {prestamo.Socio.Apellido} | " +
-                        $"Libro: {prestamo.Libro.Titulo} | " +
-                        $"F. Préstamo: {prestamo.FechaPrestamo:dd/MM/yyyy} | " +
-                        $"Devolución Est.: {prestamo.FechaDevolucionEstimada:dd/MM/yyyy} | " +
-                        $"Devolución Real: {fechaDevolucion} | " +
-                        $"Estado: {estado}");
-                }
+                throw new FormatException("El DNI debe ser un número entero.");
             }
-            catch (Exception ex)
+
+            var librosPrestados = consultarLibrosPrestados.Ejecutar(dni);
+
+            Console.WriteLine();
+
+            if (librosPrestados == null)
             {
-                Console.WriteLine($"[Error al consultar los préstamos]: {ex.Message}");
+                Console.WriteLine("El socio no tiene libros prestados actualmente o no se encontró el socio.");
+                return;
+            }
+
+            Console.WriteLine("Libros prestados encontrados:");
+            foreach (var l in librosPrestados)
+            {
+                Console.WriteLine(
+                    $"ID: {l.Id} | " +
+                    $"Código: {l.Codigo} | " +
+                    $"Título: {l.Titulo} | ");
             }
         }
-
-        static void ConsultarStockLibroMenu(ConsultarStockLibro consultarStockLibro)
+        catch (FormatException ex)
         {
-            try
+            Console.WriteLine($"[Error de formato]: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Error al consultar libros prestados]: {ex.Message}");
+        }
+    }
+
+    static void ConsultarTodosLosPrestamosMenu(ListarPrestamos listarPrestamosUseCase)
+    {
+        try
+        {
+            Console.WriteLine("---------- LISTADO GENERAL DE PRÉSTAMOS ----------");
+            Console.WriteLine();
+
+            var prestamos = listarPrestamosUseCase.Ejecutar();
+
+            if (prestamos == null || prestamos.Count == 0)
             {
-                Console.WriteLine("---------- CONSULTAR STOCK DE LIBRO ----------");
-                Console.WriteLine();
-
-                Console.Write("Código del libro: ");
-                string codigo = Console.ReadLine() ?? "";
-
-                var stock = consultarStockLibro.Ejecutar(codigo);
-
-                Console.WriteLine();
-                Console.WriteLine($"Codigo del libro: {codigo}");
-                Console.WriteLine($"Stock disponible: {stock}");
+                Console.WriteLine("No hay préstamos registrados en el sistema.");
+                return;
             }
-            catch (Exception ex)
+
+            foreach (var prestamo in prestamos)
             {
-                Console.WriteLine($"[Error al consultar stock]: {ex.Message}");
+                string estado = prestamo.EstaActivo ? "ACTIVO" : "DEVUELTO";
+                string fechaDevolucion = prestamo.FechaDevolucionReal?.ToString("dd/MM/yyyy") ?? "Pendiente";
+
+                Console.WriteLine(
+                    $"ID: {prestamo.Id} | " +
+                    $"Socio: {prestamo.Socio.Nombre} {prestamo.Socio.Apellido} | " +
+                    $"Libro: {prestamo.Libro.Titulo} | " +
+                    $"F. Préstamo: {prestamo.FechaPrestamo:dd/MM/yyyy} | " +
+                    $"Devolución Est.: {prestamo.FechaDevolucionEstimada:dd/MM/yyyy} | " +
+                    $"Devolución Real: {fechaDevolucion} | " +
+                    $"Estado: {estado}");
             }
         }
-
-        public class StockInsuficienteException : Exception
+        catch (Exception ex)
         {
-            public StockInsuficienteException(string mensaje) : base(mensaje) { }
+            Console.WriteLine($"[Error al consultar los préstamos]: {ex.Message}");
         }
+    }
 
-        public class DatoLibroInvalidoException : Exception
+    static void ConsultarStockLibroMenu(ConsultarStockLibro consultarStockLibro)
+    {
+        try
         {
-            public DatoLibroInvalidoException(string mensaje) : base(mensaje) { }
-        }                     
+            Console.WriteLine("---------- CONSULTAR STOCK DE LIBRO ----------");
+            Console.WriteLine();
+
+            Console.Write("Código del libro: ");
+            string codigo = Console.ReadLine() ?? "";
+
+            var stock = consultarStockLibro.Ejecutar(codigo);
+
+            Console.WriteLine();
+            Console.WriteLine($"Codigo del libro: {codigo}");
+            Console.WriteLine($"Stock disponible: {stock}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[Error al consultar stock]: {ex.Message}");
+        }
+    }
+
+    public class StockInsuficienteException : Exception
+    {
+        public StockInsuficienteException(string mensaje) : base(mensaje) { }
+    }
+
+    public class DatoLibroInvalidoException : Exception
+    {
+        public DatoLibroInvalidoException(string mensaje) : base(mensaje) { }//esta es la buena
+    }
 }
