@@ -264,7 +264,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
                         Console.WriteLine(
                             $"ID: {l.Id} | " +
                             $"Código: {l.Codigo} | " +
-                            $"Título: {l.Titulo} | ";
+                            $"Título: {l.Titulo} | ");
                     }
                 }
                 catch (FormatException ex)
@@ -313,7 +313,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             }
         }
 
-        static void ConsultarStockLibroMenu(ConsultarStockLibro consultarStockLibro)//
+        static void ConsultarStockLibroMenu(ConsultarStockLibro consultarStockLibro)
         {
             try
             {
@@ -343,5 +343,5 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
         public class DatoLibroInvalidoException : Exception
         {
             public DatoLibroInvalidoException(string mensaje) : base(mensaje) { }
-        }                   
+        }                     
 }
