@@ -11,6 +11,7 @@ namespace TP_integrador_2026.Domain.Entities
         public DateTime FechaPrestamo { get; private set; }
 
         public DateTime? FechaDevolucion { get; private set; }
+        public DateTime FechaVencimiento { get; private set; }
 
         public Libro Libro { get; private set; }
 
@@ -23,11 +24,14 @@ namespace TP_integrador_2026.Domain.Entities
             Libro = libro ?? throw new ArgumentNullException(nameof(libro));
             Socio = socio ?? throw new ArgumentNullException(nameof(socio));
 
+
             LibroId = libro.Id;
             SocioId = socio.Id;
 
-            FechaPrestamo = DateTime.Now;
+
+            FechaPrestamo = DateTime.UtcNow;
             FechaDevolucion = null;
+            FechaVencimiento = FechaPrestamo.AddDays(socio.DiasPrestamo);
         }
 
         // Constructor utilizado por Entity Framework Core
@@ -43,7 +47,11 @@ namespace TP_integrador_2026.Domain.Entities
                 throw new InvalidOperationException(
                     "El préstamo ya fue devuelto.");
 
-            FechaDevolucion = DateTime.Now;
+            FechaDevolucion = DateTime.UtcNow;
+        }
+        public bool EstaActivo()
+        {
+            return !FechaDevolucion.HasValue;
         }
     }
 }

@@ -14,6 +14,6 @@ namespace TP_integrador_2026.Application.Interfaces
 
         bool ExisteCodigo(string codigo);
 
-        bool TienePrestamos(int libroId);
+        bool TienePrestamosActivos(int libroId);
     }
 }

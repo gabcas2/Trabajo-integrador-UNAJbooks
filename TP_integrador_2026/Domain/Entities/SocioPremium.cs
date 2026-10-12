@@ -2,6 +2,10 @@ namespace TP_integrador_2026.Domain.Entities
 {
     public class SocioPremium : Socio
     {
+        public override int MaxPrestamosActivos => 20;
+
+        public override int DiasPrestamo => 30;
+
         public SocioPremium(
             string nombre,
             string apellido,
