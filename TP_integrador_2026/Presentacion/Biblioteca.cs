@@ -69,7 +69,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             {
                 Console.WriteLine($"[Error de formato]: {ex.Message}");
             }
-            
+
             catch(Exception ex)
             {
                 Console.WriteLine($"[Error al registrar socio]: {ex.Message}");
@@ -173,7 +173,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
                     throw new FormatException(
                     "Debe ingresar 's', 'n' o presionar ENTER.");
                 }
-            }   
+            }
 
             modificarSocio.Ejecutar(
                 dni,
@@ -192,7 +192,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
         {
             Console.WriteLine($"[Error al modificar socio]: {ex.Message}");
         }
-    } 
+    }
 
         public static void BuscarLibroMenu(BuscarLibro buscarLibro)
         {
@@ -248,7 +248,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             }catch(Exception ex)
             {
                 Console.WriteLine($"[Error al consultar libros]: {ex.Message}");
-            }    
+            }
         }
 
         public static void EliminarLibroMenu(EliminarLibro eliminarLibro)
@@ -268,7 +268,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             }catch(Exception ex)
             {
                 Console.WriteLine($"[Error al eliminar libro]: {ex.Message}");
-            }    
+            }
         }
 
         public static void RegistrarLibroMenu(RegistrarLibro registrarLibro)
@@ -315,7 +315,7 @@ namespace TP_integrador_2026.Presentacion.Biblioteca
             {
                 Console.WriteLine($"[Aviso de Stock]: {ex.Message}");
             }
-        } 
+        }
         public static void ConsultarSociosMenu(ConsultarSocios consultarSocios)
         {
             try
@@ -563,6 +563,6 @@ public static void ConsultarPrestamosSocioMenu(
         public class DatoLibroInvalidoException : Exception
         {
             public DatoLibroInvalidoException(string mensaje) : base(mensaje) { }
-        }                   
+        }
 }
 }

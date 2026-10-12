@@ -55,10 +55,32 @@ namespace TP_integrador_2026.Infrastructure.Repositories
         }
         public void Actualizar(Socio socio, bool esPremium)
         {
-            string discriminador = esPremium ? "SocioPremium" : "Socio";
+            using var transaction = _context.Database.BeginTransaction();
 
-            _context.Database.ExecuteSqlInterpolated(
-                $"UPDATE \"Socios\" SET \"Discriminator\" = {discriminador} WHERE \"Id\" = {socio.Id}");
+            try{
+                // Guardar los cambios de teléfono y dirección.
+                 _context.SaveChanges();
+
+                // Determinar el discriminador correspondiente al tipo elegido.
+                string discriminador = esPremium? nameof(SocioPremium): nameof(Socio);
+
+                // Actualizar el tipo de socio en PostgreSQL.
+                int filasActualizadas = _context.Database.ExecuteSqlInterpolated(
+                    $"UPDATE \"Socios\" SET \"Discriminator\" = {discriminador} WHERE \"Id\" = {socio.Id}");
+
+                if (filasActualizadas != 1)
+                {
+                    throw new InvalidOperationException(
+                     "No se pudo actualizar el tipo de socio.");
+                }
+
+                transaction.Commit();
+            }
+            finally
+            {
+                // Evitar que EF Core reutilice entidades con tipos desactualizados.
+                _context.ChangeTracker.Clear();
+             }
         }
     }
 }
