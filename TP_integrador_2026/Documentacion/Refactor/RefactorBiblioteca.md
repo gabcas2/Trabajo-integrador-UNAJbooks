@@ -1,4 +1,4 @@
-﻿# Registro de refactor y cambios en Biblioteca.cs
+# Registro de refactor y cambios en Biblioteca.cs
 
 ## 1. Referencia del cambio
 

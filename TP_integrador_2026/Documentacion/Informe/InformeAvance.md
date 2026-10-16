@@ -1,4 +1,4 @@
-﻿# UNAJBOOKS — Informe de avance H7
+# UNAJBOOKS — Informe de avance H7
 
 **Estado:** borrador pendiente de revisión y finalización.
 
@@ -7,8 +7,8 @@
 - **Proyecto:** UNAJBOOKS.
 - **Asignatura:** Metodología de Programación II.
 - **Trabajo:** Integrador 2026.
-- **Integrantes:** [Completar].
-- **Fecha:** [Completar].
+- **Integrantes:** Agustin Lozada, Nabergoj Alan, Castege Gabriel.
+- **Fecha:** .
 
 ## 2. Descripción del proyecto
 
@@ -24,7 +24,7 @@ Entre sus objetivos se encuentran modelar las entidades del dominio, aplicar enc
 
 ## 4. Arquitectura
 
-La solución se organiza en las siguientes capas:
+La solución se organiza en las siguientes capas(patron por capas):
 
 - **Domain:** entidades y reglas del dominio.
 - **Application:** interfaces y casos de uso.
@@ -39,7 +39,6 @@ El repositorio contiene los diagramas de dominio, aplicación, infraestructura y
 
 Los archivos están en `TP_integrador_2026/Documentacion/DiagramaUML/` y `TP_integrador_2026/Documentacion/DiagramaSecuencia/`.
 
-Antes de entregar, se debe comprobar que los diagramas coincidan con la implementación actual y completar la especificación de clases y mensajes solicitada por la cátedra.
 
 ## 6. Funcionalidades
 
@@ -84,6 +83,7 @@ Estas operaciones responden a los requisitos de recorridos, filtrado, transforma
 - Npgsql y PostgreSQL.
 - xUnit.
 - Git y GitHub.
+- Mermaid Preview 
 
 Las dependencias se declaran en los archivos de proyecto.
 
@@ -114,13 +114,31 @@ Se distingue entre los cambios orientados a la legibilidad y los cambios funcion
 
 ## 11. Patrones de diseño
 
-### Repository
+11.1. Repository (implementado)
 
-El proyecto utiliza interfaces de repositorio para separar los casos de uso de la persistencia. Esto permite que la capa Application trabaje con contratos sin depender directamente de las consultas concretas a la base de datos.
+El proyecto utiliza el patrón Repository para separar el acceso a los datos de la lógica de los casos de uso. La capa Application trabaja con interfaces de repositorio, mientras que Infrastructure contiene las implementaciones concretas que acceden a la persistencia mediante Entity Framework Core.
 
-### Segundo patrón
+Por ejemplo, los casos de uso pueden utilizar interfaces como ILibroRepository e IPrestamoRepository sin depender directamente de las consultas realizadas sobre la base de datos.
 
-[Pendiente: elegir y justificar un segundo patrón con un caso de uso concreto. Distinguir entre un patrón implementado y uno cuya aplicación se propone.]
+Esta separación facilita las pruebas automatizadas, ya que permite sustituir los repositorios concretos por implementaciones simuladas cuando se prueban los casos de uso.
+
+11.2. Inyección de dependencias (implementada)
+
+El proyecto utiliza inyección de dependencias para proporcionar a las clases los objetos que necesitan, en lugar de obligarlas a construir sus propias dependencias.
+
+La configuración de los servicios se realiza en Program.cs, mientras que los casos de uso y los repositorios reciben sus dependencias mediante sus constructores.
+
+Por ejemplo, un caso de uso puede recibir una implementación de ILibroRepository a través de su constructor. Esto reduce el acoplamiento entre las clases y permite utilizar distintas implementaciones de una misma interfaz, según la configuración de la aplicación o las necesidades de las pruebas.
+
+11.3. Strategy (propuesta de aplicación)
+
+El patrón Strategy podría utilizarse para encapsular distintas políticas de préstamo según el tipo de socio. Por ejemplo, las reglas relativas al plazo de préstamo o a la cantidad máxima de préstamos activos podrían representarse mediante estrategias intercambiables.
+
+De esta manera, si las políticas cambiasen o se incorporaran nuevos tipos de socios, sería posible incorporar nuevas estrategias sin concentrar todas las variantes en una misma clase mediante múltiples condiciones.
+
+Esta aplicación se presenta como una propuesta de diseño y no como una funcionalidad implementada actualmente. Antes de incorporarla al código, sería necesario analizar las reglas existentes y determinar si una estrategia independiente aporta una mejora real respecto del comportamiento que ya se encuentra modelado mediante las clases de socios.
+
+
 
 ## 12. Metodología y organización del equipo
 
@@ -146,23 +164,11 @@ La configuración de la conexión y el procedimiento de inicialización de la ba
 
 El proyecto utiliza Git y GitHub para conservar el historial de cambios y trabajar mediante ramas.
 
-En el commit `bb5c1bc`, las ramas `main` y `feature/Agustin` quedaron sincronizadas.
-
-Antes de entregar, se deben añadir evidencias de la participación real de los integrantes y de la organización del trabajo.
 
 ## 15. Pendientes antes de la entrega
 
-- Completar los datos del equipo y la metodología.
-- Incorporar las evidencias de Trello y las actas requeridas.
-- Contrastar los diagramas UML con el código.
-- Completar la especificación de clases y mensajes.
-- Justificar un segundo patrón de diseño.
-- Documentar la configuración de la base de datos desde cero.
-- Incorporar evidencia de ejecución de la aplicación.
-- Revisar la cobertura de pruebas según los requisitos de la cátedra.
-- Describir con ejemplos concretos los cambios anteriores y posteriores al refactor.
+- Revisar la cobertura de pruebas según los requisitos de la materia.
 - Revisar el informe completo contra las pautas de la asignatura.
 
 ---
 
-**Nota:** este documento es un borrador de avance. Los puntos pendientes deben resolverse antes de presentarlo como informe final.
