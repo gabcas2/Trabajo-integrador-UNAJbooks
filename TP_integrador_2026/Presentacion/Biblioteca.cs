@@ -478,6 +478,22 @@ public static void VerPrestamosActivosMenu(
             return;
         }
 
+        var conteoPorSocio =
+            consultarPrestamosActivos.ContarPrestamosActivosPorSocio(prestamos);
+
+        Console.WriteLine();
+        Console.WriteLine("CONTEO DE PRÉSTAMOS ACTIVOS POR SOCIO");
+        Console.WriteLine("Ordenado por DNI:");
+
+        foreach (var conteo in conteoPorSocio.OrderBy(item => item.Key))
+        {
+            Console.WriteLine(
+                $"DNI: {conteo.Key} | " +
+                $"Cantidad de préstamos activos: {conteo.Value}");
+        }
+
+        Console.WriteLine();
+
         foreach (var prestamo in prestamos)
         {
             Console.WriteLine(
@@ -553,6 +569,86 @@ public static void ConsultarPrestamosSocioMenu(
             $"[Error al consultar préstamos del socio]: {ex.Message}");
     }
 }
+   public static void RecorridosLibrosMenu(
+            ConsultarLibros consultarLibros)
+        {
+            Console.WriteLine("---------- RECORRIDOS DE COLECCIÓN ----------");
+            Console.WriteLine();
+
+            // 1. Filtrar libros que cumplen la condición.
+            Console.WriteLine("1. Libros con stock disponible:");
+
+            var librosConStock = consultarLibros.FiltrarLibrosConStock();
+
+            if (librosConStock.Count == 0)
+            {
+                Console.WriteLine("No hay libros con stock disponible.");
+            }
+            else
+            {
+                foreach (var libro in librosConStock)
+                {
+                    Console.WriteLine(
+                        $"{libro.Titulo} | Stock: {libro.Stock}");
+                }
+            }
+
+            Console.WriteLine();
+
+            // 2. Filtrar libros que no cumplen la condición.
+            Console.WriteLine("2. Libros sin stock:");
+
+            var librosSinStock = consultarLibros.FiltrarLibrosSinStock();
+
+            if (librosSinStock.Count == 0)
+            {
+                Console.WriteLine("No hay libros sin stock.");
+            }
+            else
+            {
+                foreach (var libro in librosSinStock)
+                {
+                    Console.WriteLine(
+                        $"{libro.Titulo} | Stock: {libro.Stock}");
+                }
+            }
+
+            Console.WriteLine();
+
+            // 3. Transformar cada libro en su título.
+            Console.WriteLine("3. Títulos de los libros:");
+
+            var titulos = consultarLibros.ObtenerTitulosLibros();
+
+            if (titulos.Count == 0)
+            {
+                Console.WriteLine("No hay libros registrados.");
+            }
+            else
+            {
+                foreach (var titulo in titulos)
+                {
+                    Console.WriteLine(titulo);
+                }
+            }
+
+            Console.WriteLine();
+
+            // 4. Encontrar el primer libro con stock.
+            Console.WriteLine("4. Primer libro con stock disponible:");
+
+            var primerLibro = consultarLibros.BuscarPrimerLibroConStock();
+
+            if (primerLibro is null)
+            {
+                Console.WriteLine("No hay ningún libro con stock disponible.");
+            }
+            else
+            {
+                Console.WriteLine(
+                    $"{primerLibro.Titulo} | Stock: {primerLibro.Stock}");
+            }
+        }
 
 
         public class StockInsuficienteException : Exception

@@ -31,9 +31,13 @@ class RegistrarLibro {
     +Ejecutar(titulo, autor, editorial, stock) Libro
 }
 
-class BuscarLibro {
+class ConsultarLibros {
     -ILibroRepository _libroRepository
-    +Ejecutar(codigo) Libro
+    +Ejecutar() List~Libro~
+    +FiltrarLibrosConStock() List~Libro~
+    +FiltrarLibrosSinStock() List~Libro~
+    +ObtenerTitulosLibros() List~string~
+    +BuscarPrimerLibroConStock() Libro
 }
 
 class ConsultarLibros {
@@ -171,6 +175,7 @@ class RegistrarDevolucion {
 class ConsultarPrestamosActivos {
     -IPrestamoRepository _prestamoRepository
     +Ejecutar() List~Prestamo~
+    +ContarPrestamosActivosPorSocio(prestamosActivos: List~Prestamo~) Dictionary~int, int~
 }
 
 class ConsultarPrestamosSocio {

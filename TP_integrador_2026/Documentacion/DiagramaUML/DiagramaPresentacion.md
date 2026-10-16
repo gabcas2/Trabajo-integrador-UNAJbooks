@@ -19,6 +19,7 @@ class Biblioteca {
     +RegistrarLibroMenu(registrarLibro)
     +BuscarLibroMenu(buscarLibro)
     +ConsultarLibrosMenu(consultarLibros)
+    +RecorridosLibrosMenu(consultarLibros)
     +EliminarLibroMenu(eliminarLibro)
     +RegistrarSocioMenu(registrarSocio)
     +BuscarSocioMenu(buscarSocio)
@@ -72,7 +73,7 @@ class ConsultarPrestamosSocio
 
 Biblioteca ..> RegistrarLibro : registrar libro
 Biblioteca ..> BuscarLibro : buscar libro
-Biblioteca ..> ConsultarLibros : consultar libros
+Biblioteca ..> ConsultarLibros : consultar libros y demostrar recorridos
 Biblioteca ..> EliminarLibro : eliminar libro
 
 Biblioteca ..> RegistrarSocio : registrar socio
@@ -83,6 +84,6 @@ Biblioteca ..> EliminarSocio : eliminar socio
 
 Biblioteca ..> RegistrarPrestamo : registrar prestamo
 Biblioteca ..> RegistrarDevolucion : registrar devolucion
-Biblioteca ..> ConsultarPrestamosActivos : ver prestamos activos
+Biblioteca ..> ConsultarPrestamosActivos : ver prestamos activos y conteo por socio
 Biblioteca ..> ConsultarPrestamosSocio : consultar prestamos de socio
 ```

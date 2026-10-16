@@ -104,7 +104,8 @@ namespace TP_integrador_2026
                 Console.WriteLine("11. Registrar devolución");
                 Console.WriteLine("12. Ver préstamos activos");
                 Console.WriteLine("13. Consultar préstamos de un socio");
-                Console.WriteLine("14. Salir");
+                Console.WriteLine("14. Demostracion de recorridos de colección");
+                Console.WriteLine("15. Salir");
 
                 Console.WriteLine();
                 Console.Write("Seleccione una opción: ");
@@ -164,6 +165,10 @@ namespace TP_integrador_2026
                             Biblioteca.ConsultarPrestamosSocioMenu(consultarPrestamosSocio);
                             break;
                         case "14":
+                            Biblioteca.RecorridosLibrosMenu(consultarLibros);
+                            break;
+
+                        case "15":
                             Console.WriteLine("Saliendo de UNAJBOOKS...");
                             salir = true;
                             break;

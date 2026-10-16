@@ -16,5 +16,27 @@ namespace TP_integrador_2026.Application.UseCases.Prestamos
         {
             return _prestamoRepository.ObtenerActivos();
         }
+
+          public Dictionary<int, int> ContarPrestamosActivosPorSocio(
+            List<Prestamo> prestamosActivos)
+        {
+            var conteoPorDni = new Dictionary<int, int>();
+
+            foreach (var prestamo in prestamosActivos)
+            {
+                int dni = prestamo.Socio.DNI;
+
+                if (conteoPorDni.ContainsKey(dni))
+                {
+                    conteoPorDni[dni]++;
+                }
+                else
+                {
+                    conteoPorDni[dni] = 1;
+                }
+            }
+
+            return conteoPorDni;
+        }
     }
 }

@@ -1,4 +1,4 @@
-# Compilación
+# Compilaciï¿½n
 bin/
 obj/
 
@@ -10,3 +10,6 @@ obj/
 # Archivos temporales
 *.tmp
 *.log
+
+# ConfiguraciÃ³n local con credenciales
+TP_integrador_2026/appsettings.Development.json
