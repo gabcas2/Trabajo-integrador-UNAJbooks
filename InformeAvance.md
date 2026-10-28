@@ -165,6 +165,15 @@ Desde la raíz del repositorio, ejecutar `dotnet run --project .\TP_integrador_2
 
 La configuración de la conexión y el procedimiento de inicialización de la base de datos deben quedar documentados con instrucciones que puedan seguirse en otra computadora.//pedir la configuracion de postgreSQL
 
+Configuracion para usar credenciales locales:
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=UNAJBooks;Username=postgres;Password=TU_CONTRASEÑA"
+  }
+}
+```
+
 ## 14. Control de versiones
 
 El proyecto utiliza Git y GitHub para conservar el historial de cambios y trabajar mediante ramas, cada miembro del equipo tenia su propia rama desde donde subia sus respectivas modificaciones correspondientes al Main, por lo general se consultaba a todo el equipo antes de integrar los Pull Request mediante un Merge.
