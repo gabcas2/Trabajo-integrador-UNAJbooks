@@ -100,7 +100,7 @@ En el commit `bb5c1bc`, la ejecución de `dotnet test` informó:
 
 Las pruebas abarcan entidades, casos de uso, repositorios y configuración de persistencia. Algunas utilizan el proveedor InMemory de Entity Framework Core; por eso, el resultado no equivale a una prueba completa contra una instancia real de PostgreSQL.
 
-Para repetir las pruebas desde la raíz del repositorio, ejecutar `dotnet test .\TP_integrador_2026\TP_integrador_2026.sln`.
+Para repetir las pruebas desde la raíz del repositorio, ejecutar `dotnet test .\TP_integrador_2026\TP_integrador_2026.sln`.//pedir captura de las pruebas
 
 ## 10. Refactorización
 
@@ -146,11 +146,15 @@ La documentación debe indicar la metodología utilizada, la organización de la
 
 Pendiente de completar:
 
-- Metodología adoptada.
-- Integrantes y responsabilidades reales.
+- Metodología adoptada: Para el desarrollo de este trabajo practico la metodologia utilizada fue Scrum, las tareas estuvieron divididas en tres sprints.
+  
+- Integrantes y responsabilidades reales: El equipo esta integrado por Agustín Lozada, Alan Nabergoj y Gabriel Castege. Cada integrante podia decidir que tarea del sprint iban a realizar y organizar el tiempo que le dedicaban.
+
+- Organizacion de tareas: Las tareas se organizan en distintos tableros de Trello dependiendo de los tres sprints, su estado: "Haciendo", "En revision" y "Hecho" y el Backlog donde se almacenan antes de organizarlas en los sprints.
+   
 - Evidencias del tablero de Trello.
 - Actas de seguimiento exigidas por la cátedra.
-- Aportes realizados por cada integrante.
+- Aportes realizados por cada integrante.//aca iria una captura de los commits de cada integrante
 
 ## 13. Ejecución
 
@@ -158,11 +162,11 @@ Requisitos previos: .NET SDK 9, PostgreSQL y una base de datos configurada con l
 
 Desde la raíz del repositorio, ejecutar `dotnet run --project .\TP_integrador_2026\TP_integrador_2026.csproj`.
 
-La configuración de la conexión y el procedimiento de inicialización de la base de datos deben quedar documentados con instrucciones que puedan seguirse en otra computadora.
+La configuración de la conexión y el procedimiento de inicialización de la base de datos deben quedar documentados con instrucciones que puedan seguirse en otra computadora.//pedir la configuracion de postgreSQL
 
 ## 14. Control de versiones
 
-El proyecto utiliza Git y GitHub para conservar el historial de cambios y trabajar mediante ramas.
+El proyecto utiliza Git y GitHub para conservar el historial de cambios y trabajar mediante ramas, cada miembro del equipo tenia su propia rama desde donde subia sus respectivas modificaciones correspondientes al Main, por lo general se consultaba a todo el equipo antes de integrar los Pull Request mediante un Merge.
 
 
 ## 15. Pendientes antes de la entrega
