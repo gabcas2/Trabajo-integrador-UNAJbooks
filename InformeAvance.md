@@ -153,6 +153,7 @@ Pendiente de completar:
 - Organizacion de tareas: Las tareas se organizan en distintos tableros de Trello dependiendo de los tres sprints, su estado: "Haciendo", "En revision" y "Hecho" y el Backlog donde se almacenan antes de organizarlas en los sprints.
    
 - Evidencias del tablero de Trello.
+  ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/d6e455844f0a73ddc2f81f6fb31c6716ed3c9946/Trello.PNG)
 - Actas de seguimiento exigidas por la cátedra.
 - Aportes realizados por cada integrante.//aca iria una captura de los commits de cada integrante
 
