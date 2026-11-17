@@ -163,7 +163,24 @@ Requisitos previos: .NET SDK 9, PostgreSQL y una base de datos configurada con l
 
 Desde la raíz del repositorio, ejecutar `dotnet run --project .\TP_integrador_2026\TP_integrador_2026.csproj`.
 
-La configuración de la conexión y el procedimiento de inicialización de la base de datos deben quedar documentados con instrucciones que puedan seguirse en otra computadora.//pedir la configuracion de postgreSQL
+La configuración de la conexión y el procedimiento de inicialización de la base de datos deben quedar documentados con instrucciones que puedan seguirse en otra computadora.Configuracion de postgreSQL:
+```
+public AppDbContext CreateDbContext(string[] args)
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false)
+                .Build();
+
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+
+            // Configuración del proveedor PostgreSQL mediante Npgsql
+            optionsBuilder.UseNpgsql(
+                configuration.GetConnectionString("DefaultConnection"));
+
+            return new AppDbContext(optionsBuilder.Options);
+        }
+```
 
 Configuracion para usar credenciales locales:
 ```json
