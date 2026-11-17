@@ -100,8 +100,6 @@ En el commit `bb5c1bc`, la ejecución de `dotnet test` informó:
 
 Las pruebas abarcan entidades, casos de uso, repositorios y configuración de persistencia. Algunas utilizan el proveedor InMemory de Entity Framework Core; por eso, el resultado no equivale a una prueba completa contra una instancia real de PostgreSQL.
 
-Para repetir las pruebas desde la raíz del repositorio, ejecutar `dotnet test .\TP_integrador_2026\TP_integrador_2026.sln`.//pedir captura de las pruebas
-
 ## 10. Refactorización
 
 El historial de Git contiene el commit `3831623`, cuyo mensaje es `Refactor Biblioteca.cs for improved readability`.
@@ -155,7 +153,23 @@ Pendiente de completar:
 - Evidencias del tablero de Trello.
   ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/d6e455844f0a73ddc2f81f6fb31c6716ed3c9946/Trello.PNG)
 - Actas de seguimiento exigidas por la cátedra.
-- Aportes realizados por cada integrante.//aca iria una captura de los commits de cada integrante
+- Aportes realizados por cada integrante:
+Agustin Lozada:
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/8f7955af2919fbe94338b3057f89bd24b0240930/C2.PNG
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/8f7955af2919fbe94338b3057f89bd24b0240930/C1.PNG
+
+Gabriel Castege:
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F1.PNG
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F2.PNG
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F4.PNG
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F5.PNG
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F6.PNG
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F7.PNG
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F8.PNG
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F9.PNG
+
+Alan Nabergoj: 
+https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/e8171adedcc8cd389fe8eaac13cae7bb509fb1e3/N.PNG
 
 ## 13. Ejecución
 
