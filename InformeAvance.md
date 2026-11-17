@@ -155,10 +155,12 @@ Pendiente de completar:
 - Actas de seguimiento exigidas por la cátedra.
 - Aportes realizados por cada integrante:
 Agustin Lozada:
+
 ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/8f7955af2919fbe94338b3057f89bd24b0240930/C2.PNG)
 ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/8f7955af2919fbe94338b3057f89bd24b0240930/C1.PNG)
 
 Gabriel Castege:
+
 ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F1.PNG)
 ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F2.PNG)
 ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F4.PNG)
@@ -168,7 +170,8 @@ Gabriel Castege:
 ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F8.PNG)
 ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F9.PNG)
 
-Alan Nabergoj: 
+Alan Nabergoj:
+
 ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/e8171adedcc8cd389fe8eaac13cae7bb509fb1e3/N.PNG)
 
 ## 13. Ejecución
