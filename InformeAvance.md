@@ -155,21 +155,21 @@ Pendiente de completar:
 - Actas de seguimiento exigidas por la cátedra.
 - Aportes realizados por cada integrante:
 Agustin Lozada:
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/8f7955af2919fbe94338b3057f89bd24b0240930/C2.PNG
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/8f7955af2919fbe94338b3057f89bd24b0240930/C1.PNG
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/8f7955af2919fbe94338b3057f89bd24b0240930/C2.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/8f7955af2919fbe94338b3057f89bd24b0240930/C1.PNG)
 
 Gabriel Castege:
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F1.PNG
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F2.PNG
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F4.PNG
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F5.PNG
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F6.PNG
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F7.PNG
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F8.PNG
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F9.PNG
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F1.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F2.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F4.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F5.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F6.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F7.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F8.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F9.PNG)
 
 Alan Nabergoj: 
-https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/e8171adedcc8cd389fe8eaac13cae7bb509fb1e3/N.PNG
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/e8171adedcc8cd389fe8eaac13cae7bb509fb1e3/N.PNG)
 
 ## 13. Ejecución
 
