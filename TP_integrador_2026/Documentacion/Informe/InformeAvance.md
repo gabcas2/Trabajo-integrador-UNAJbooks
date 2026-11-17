@@ -1,6 +1,6 @@
 # UNAJBOOKS — Informe de avance H7
 
-**Estado:** borrador pendiente de revisión y finalización.
+**Estado:** Completo.
 
 ## 1. Datos generales
 
@@ -8,7 +8,7 @@
 - **Asignatura:** Metodología de Programación II.
 - **Trabajo:** Integrador 2026.
 - **Integrantes:** Agustin Lozada, Nabergoj Alan, Castege Gabriel.
-- **Fecha:** .
+- **Fecha:** 10/11/2026.
 
 ## 2. Descripción del proyecto
 
@@ -100,8 +100,6 @@ En el commit `bb5c1bc`, la ejecución de `dotnet test` informó:
 
 Las pruebas abarcan entidades, casos de uso, repositorios y configuración de persistencia. Algunas utilizan el proveedor InMemory de Entity Framework Core; por eso, el resultado no equivale a una prueba completa contra una instancia real de PostgreSQL.
 
-Para repetir las pruebas desde la raíz del repositorio, ejecutar `dotnet test .\TP_integrador_2026\TP_integrador_2026.sln`.
-
 ## 10. Refactorización
 
 El historial de Git contiene el commit `3831623`, cuyo mensaje es `Refactor Biblioteca.cs for improved readability`.
@@ -144,13 +142,35 @@ Esta aplicación se presenta como una propuesta de diseño y no como una funcion
 
 La documentación debe indicar la metodología utilizada, la organización de las tareas, la distribución de responsabilidades y las evidencias de colaboración.
 
-Pendiente de completar:
+- Metodología adoptada: Para el desarrollo de este trabajo practico la metodologia utilizada fue Scrum, las tareas estuvieron divididas en tres sprints.
+  
+- Integrantes y responsabilidades reales: El equipo esta integrado por Agustín Lozada, Alan Nabergoj y Gabriel Castege. Cada integrante podia decidir que tarea del sprint iban a realizar y organizar el tiempo que le dedicaban.
 
-- Metodología adoptada.
-- Integrantes y responsabilidades reales.
+- Organizacion de tareas: Las tareas se organizan en distintos tableros de Trello dependiendo de los tres sprints, su estado: "Haciendo", "En revision" y "Hecho" y el Backlog donde se almacenan antes de organizarlas en los sprints.
+   
 - Evidencias del tablero de Trello.
+  ![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/d6e455844f0a73ddc2f81f6fb31c6716ed3c9946/Trello.PNG)
 - Actas de seguimiento exigidas por la cátedra.
-- Aportes realizados por cada integrante.
+- Aportes realizados por cada integrante:
+Agustin Lozada:
+
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/8f7955af2919fbe94338b3057f89bd24b0240930/C2.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/8f7955af2919fbe94338b3057f89bd24b0240930/C1.PNG)
+
+Gabriel Castege:
+
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F1.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F2.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F4.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F5.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F6.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F7.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F8.PNG)
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/3de99658d0b3554eddb0572daeab177167affbd8/F9.PNG)
+
+Alan Nabergoj:
+
+![image alt](https://github.com/gabcas2/Trabajo-integrador-UNAJbooks/blob/e8171adedcc8cd389fe8eaac13cae7bb509fb1e3/N.PNG)
 
 ## 13. Ejecución
 
@@ -158,17 +178,34 @@ Requisitos previos: .NET SDK 9, PostgreSQL y una base de datos configurada con l
 
 Desde la raíz del repositorio, ejecutar `dotnet run --project .\TP_integrador_2026\TP_integrador_2026.csproj`.
 
-La configuración de la conexión y el procedimiento de inicialización de la base de datos deben quedar documentados con instrucciones que puedan seguirse en otra computadora.
+Configuracion de postgreSQL:
+```
+public AppDbContext CreateDbContext(string[] args)
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false)
+                .Build();
+
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+
+            // Configuración del proveedor PostgreSQL mediante Npgsql
+            optionsBuilder.UseNpgsql(
+                configuration.GetConnectionString("DefaultConnection"));
+
+            return new AppDbContext(optionsBuilder.Options);
+        }
+```
+
+Configuracion para usar credenciales locales:
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=UNAJBooks;Username=postgres;Password=TU_CONTRASEÑA"
+  }
+}
+```
 
 ## 14. Control de versiones
 
-El proyecto utiliza Git y GitHub para conservar el historial de cambios y trabajar mediante ramas.
-
-
-## 15. Pendientes antes de la entrega
-
-- Revisar la cobertura de pruebas según los requisitos de la materia.
-- Revisar el informe completo contra las pautas de la asignatura.
-
----
-
+El proyecto utiliza Git y GitHub para conservar el historial de cambios y trabajar mediante ramas, cada miembro del equipo tenia su propia rama desde donde subia sus respectivas modificaciones correspondientes al Main, por lo general se consultaba a todo el equipo antes de integrar los Pull Request mediante un Merge.
